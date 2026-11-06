@@ -1,0 +1,662 @@
+/* Colours are the launcher's (hinteros-launcher lib/src/theme/hinter_theme.dart). The site takes
+   two more ideas from the launcher: square, solid surfaces, and its focus ring (white, with a gap
+   of background between the ring and the thing in focus, and a small scale-up) on everything
+   you can select. The one light source on a page is the TV screen. */
+:root {
+  color-scheme: dark;
+  --bg: #0e1118;
+  --bg-deep: #090c12;
+  --band: #141926;
+  --surface: #1b2030;
+  --surface-high: #2a3147;
+  --line: #2a3147;
+  --text: #f4f6fb;
+  --text-dim: #b4bbcc;
+  --accent: #7aa2ff;
+  --on-accent: #0b1020;
+  --positive: #6ee0a0;
+  --danger: #ff8a80;
+  --ring: #fff;
+  --wrap: 72rem;
+  --measure: 40rem;
+  --fast: 140ms;
+}
+
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  src: url("/fonts/AtkinsonHyperlegible-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  src: url("/fonts/AtkinsonHyperlegible-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 400 1.0625rem/1.6 "Atkinson Hyperlegible", system-ui, sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main { flex: 1; width: 100%; }
+
+a { color: var(--accent); text-underline-offset: 0.15em; }
+a:hover { text-decoration-thickness: 2px; }
+
+/* The launcher's focus ring. */
+:focus-visible { outline: 3px solid var(--ring); outline-offset: 4px; }
+
+/* Type: a 1.25 scale on 17px. */
+h1, h2, h3 { line-height: 1.15; margin: 0 0 0.6em; letter-spacing: -0.01em; }
+h1 { font-size: clamp(2.2rem, 4.5vw, 2.75rem); }
+h2 { font-size: 1.66rem; }
+h3 { font-size: 1.33rem; margin-top: 1.6em; }
+p, li { max-width: var(--measure); }
+
+code, kbd, pre { font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; font-size: 0.9em; }
+code { background: var(--surface); padding: 0.1em 0.35em; }
+pre {
+  background: var(--bg-deep);
+  border: 1px solid var(--line);
+  padding: 0.9rem 1rem;
+  overflow-x: auto;
+  max-width: var(--measure);
+}
+pre code { background: none; padding: 0; }
+kbd {
+  display: inline-block;
+  min-width: 1.8em;
+  padding: 0.1em 0.45em;
+  text-align: center;
+  background: var(--surface-high);
+  box-shadow: inset 0 -2px 0 rgb(0 0 0 / 0.4);
+}
+
+.wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 16px; }
+@media (min-width: 640px) { .wrap { padding: 0 32px; } }
+
+/* Header: the current page is underlined like the launcher's current tab. */
+.site-header { border-bottom: 1px solid var(--line); }
+.site-header .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  flex-wrap: wrap;
+  padding-top: 0.9rem;
+  padding-bottom: 0.9rem;
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--text);
+  font-weight: 700;
+  font-size: 1.25rem;
+  text-decoration: none;
+}
+.site-header nav { display: flex; gap: 0.25rem 1.25rem; flex-wrap: wrap; }
+.site-header nav a {
+  position: relative;
+  color: var(--text-dim);
+  text-decoration: none;
+  padding: 0.35rem 0;
+}
+.site-header nav a:hover { color: var(--text); }
+.site-header nav a[aria-current] { color: var(--text); font-weight: 700; }
+/* Download is the one action in the menu: a small accent button. */
+.site-header nav a[href="/download/"] { background: var(--accent); color: var(--on-accent); font-weight: 700; padding: 0.35rem 0.9rem; }
+.site-header nav a[href="/download/"]::after { display: none; }
+.site-header nav a[aria-current]::after {
+  content: "";
+  position: absolute;
+  left: 25%;
+  right: 25%;
+  bottom: -2px;
+  height: 3px;
+  background: var(--accent);
+}
+
+/* Things you select grow a little in focus, as in the launcher. */
+.button, .topics a, .pager a { transition: transform var(--fast) ease-out; }
+.button:hover, .button:focus-visible,
+.topics a:hover, .topics a:focus-visible,
+.pager a:hover, .pager a:focus-visible {
+  outline: 3px solid var(--ring);
+  outline-offset: 4px;
+  transform: scale(1.03);
+}
+@media (prefers-reduced-motion: reduce) {
+  .button, .topics a, .pager a { transition: none; }
+  .button:hover, .button:focus-visible,
+  .topics a:hover, .topics a:focus-visible,
+  .pager a:hover, .pager a:focus-visible { transform: none; }
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 1.6rem;
+  border: 0;
+  background: var(--surface-high);
+  color: var(--text);
+  font: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+}
+.button.primary { background: var(--accent); color: var(--on-accent); }
+
+.lede { font-size: 1.25rem; line-height: 1.5; color: var(--text-dim); max-width: 36rem; }
+.meta { color: var(--text-dim); font-size: 0.95rem; }
+
+/* Home: the name and the TV. The TV is the only light in the room. */
+.hero { padding: clamp(2.5rem, 7vw, 5.5rem) 0 clamp(3rem, 8vw, 6rem); overflow: hidden; }
+.hero-grid { display: grid; gap: 3rem; align-items: center; }
+@media (min-width: 60rem) { .hero-grid { grid-template-columns: 5fr 7fr; gap: 4rem; } }
+.hero h1 {
+  font-size: clamp(3.5rem, 9vw, 6.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  margin-bottom: 1.5rem;
+}
+.hero .lede { margin-bottom: 2.25rem; }
+.actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+.player.hero-tv { width: 100%; min-width: 0; margin: 0; }
+.hero-tv .bezel { box-shadow: 0 0 0 1px #000, 0 30px 140px -20px rgb(122 162 255 / 0.32), 0 18px 40px rgb(0 0 0 / 0.5); }
+.tv img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* Tour: a carousel of launcher screens. The tabs copy the launcher's own tab bar. Without
+   JavaScript the track scrolls sideways and the tabs are links to the slides. */
+.tour { padding: 4.5rem 0 3rem; }
+.tour-tabs {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0 1.75rem;
+  border-bottom: 1px solid var(--line); margin-bottom: 1.75rem;
+}
+.tour-tabs a {
+  padding: 0.6rem 0; margin-bottom: -1px; border-bottom: 3px solid transparent;
+  color: var(--text-dim); font-weight: 700; text-decoration: none;
+}
+.tour-tabs a:hover { color: var(--text); }
+.tour-tabs a[aria-current="true"] { color: var(--text); border-bottom-color: var(--accent); }
+.tour-step { display: flex; gap: 0.5rem; margin-left: auto; padding: 0.4rem 0; }
+.tour-step[hidden] { display: none; }
+.tour-step button {
+  width: 2.5rem; height: 2.5rem; font: inherit; font-size: 1.6rem; line-height: 1;
+  color: var(--text); background: var(--surface); border: 1px solid var(--line); cursor: pointer;
+}
+.tour-step button:hover { background: var(--surface-high); }
+.tour-track {
+  display: grid; grid-auto-flow: column; grid-auto-columns: 100%; gap: 2rem;
+  position: relative; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
+  overscroll-behavior-x: contain; scrollbar-width: none; padding-bottom: 2.5rem;
+}
+.tour-track::-webkit-scrollbar { display: none; }
+.tour-slide { margin: 0; scroll-snap-align: start; display: grid; gap: 1.25rem 3rem; align-items: center; }
+.tour-slide img { display: block; width: 100%; height: auto; border: 1px solid var(--line); box-shadow: 0 18px 50px rgb(0 0 0 / 0.45); }
+.tour-slide h3 { font-size: 1.45rem; margin: 0 0 0.5rem; }
+.tour-slide p { margin: 0; color: var(--text-dim); max-width: 26rem; }
+@media (min-width: 60rem) {
+  .tour-slide { grid-template-columns: 7fr 4fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tour-track { scroll-behavior: auto; }
+}
+
+.features { background: var(--band) no-repeat; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 4rem 0; }
+.section-heading { font-size: 2.07rem; margin-bottom: 1.5rem; }
+.grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
+}
+.grid article {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 1.5rem 1.6rem 1.7rem;
+}
+/* Five features: three above two, so no row ends in a hole. */
+@media (min-width: 60rem) {
+  .features .grid { grid-template-columns: repeat(6, 1fr); }
+  .features .grid article { grid-column: span 2; }
+}
+.grid h3 { font-size: 1.2rem; margin: 0 0 0.5em; }
+.grid p { margin: 0; color: var(--text-dim); }
+
+.technical { padding: 4rem 0 5rem; }
+
+/* Technical stack: the system as a hologram of an office building, one floor for each layer,
+   NixOS at the ground. It is an isometric SVG: each floor is a slab on a square base, with its
+   hidden edges dashed. Pick a floor and it lights up, and the panel beside the building shows
+   that layer. Without JavaScript, all the layers show in the panel. */
+.stack { display: grid; gap: 2.5rem 4rem; align-items: center; }
+@media (min-width: 52rem) { .stack { grid-template-columns: 28rem minmax(0, 1fr); } }
+/* Each layer has its own colour, used when its floor lights up and on its panel. */
+#floor-nixos, #layer-nixos { --c: #7ebae4; }
+#floor-daemon, #layer-daemon { --c: #ff9d6e; }
+#floor-input, #layer-input { --c: #6ee0a0; }
+#floor-session, #layer-session { --c: #b99cff; }
+#floor-sandbox, #layer-sandbox { --c: #ffd36b; }
+.building { display: block; width: 100%; max-width: 28rem; margin: 0 auto; overflow: visible; }
+.building .pad { fill: rgb(122 162 255 / 0.1); filter: blur(6px); }
+.building .pad-rim { fill: none; stroke: var(--accent); stroke-opacity: 0.5; }
+.building .back { stroke-dasharray: 3 3; }
+.floor { cursor: pointer; outline: none; transition: filter var(--fast) ease-out; }
+.floor .face { fill: rgb(122 162 255 / 0.05); transition: fill var(--fast) ease-out; }
+.floor .scan { fill: url(#scan); opacity: 0; transition: opacity var(--fast) ease-out; }
+.floor .edge {
+  fill: none; stroke: var(--accent); stroke-opacity: 0.4; stroke-linejoin: round;
+  transition: stroke var(--fast) ease-out, stroke-opacity var(--fast) ease-out;
+}
+.floor .edge.back { stroke-opacity: 0.2; }
+.floor text { fill: var(--accent); fill-opacity: 0.7; font-size: 15px; font-weight: 700; transition: fill var(--fast) ease-out; }
+.floor:hover .face { fill: color-mix(in srgb, var(--c) 12%, transparent); }
+.floor:hover .edge { stroke: var(--c); stroke-opacity: 0.75; }
+.floor:hover text { fill: var(--c); }
+.floor[aria-selected="true"] {
+  filter: drop-shadow(0 0 3px color-mix(in srgb, var(--c) 90%, transparent))
+          drop-shadow(0 0 16px color-mix(in srgb, var(--c) 55%, transparent));
+}
+.floor[aria-selected="true"] .face { fill: color-mix(in srgb, var(--c) 24%, transparent); }
+.floor[aria-selected="true"] .scan { opacity: 1; }
+.floor[aria-selected="true"] .edge { stroke: var(--c); stroke-opacity: 1; }
+.floor[aria-selected="true"] .edge.back { stroke-opacity: 0.6; }
+.floor[aria-selected="true"] text { fill: var(--text); fill-opacity: 1; }
+.floor:focus-visible .edge:not(.back) { stroke: var(--ring); stroke-opacity: 1; stroke-width: 2; }
+.layer { border-left: 3px solid var(--c); padding-left: 1.25rem; }
+.layer h3 { margin: 0 0 0.4rem; font-size: 1.45rem; color: var(--c); }
+.layer p { margin: 0 0 0.75rem; font-size: 1.1rem; max-width: var(--measure); }
+.layer ul { margin: 0 0 2rem; padding-left: 1.1rem; color: var(--text-dim); max-width: var(--measure); }
+.layer li { margin: 0.35rem 0; }
+.layer li::marker { color: var(--c); }
+.stack.live .layer:not(.on) { display: none; }
+.stack.live .layer ul { margin-bottom: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .floor, .floor .face, .floor .scan, .floor .edge, .floor text { transition: none; }
+}
+.tech {
+  display: grid;
+  grid-template-columns: 8rem minmax(0, 1fr);
+  gap: 1.1rem 2rem;
+  margin: 0;
+  max-width: 52rem;
+}
+.tech dt { font-weight: 700; }
+.tech dd { margin: 0; color: var(--text-dim); max-width: var(--measure); }
+@media (max-width: 560px) {
+  .tech { grid-template-columns: 1fr; gap: 0.2rem; }
+  .tech dd { margin-bottom: 0.9rem; }
+}
+
+/* Inner pages */
+.page { padding-top: 2.5rem; padding-bottom: 5rem; }
+.page.try { padding-top: 1rem; }
+.page section { margin-top: 3rem; max-width: 46rem; }
+.page li { margin-bottom: 0.4rem; }
+.prose > * { max-width: var(--measure); }
+.prose h2 { margin-top: 2.5rem; }
+.contact { margin-top: 2rem; }
+@media (min-width: 561px) { .contact { grid-template-columns: 10rem minmax(0, 1fr); } }
+
+.download-card {
+  max-width: none !important;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--accent);
+  padding: 1.75rem;
+  display: grid;
+  gap: 1rem 1.5rem;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+}
+.download-card h2 { margin: 0; font-size: 1.66rem; }
+.download-card .meta { margin: 0.25rem 0 0; }
+.download-card .facts { grid-column: 1 / -1; }
+@media (max-width: 560px) {
+  .download-card { grid-template-columns: 1fr; }
+}
+.tag {
+  font-size: 0.85rem;
+  font-weight: 700;
+  vertical-align: middle;
+  background: var(--positive);
+  color: var(--on-accent);
+  padding: 0.15em 0.55em;
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 0.5rem 1rem;
+  margin: 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+/* Requirements: one compact row of label and value pairs. */
+.specs { display: flex; flex-wrap: wrap; gap: 0.75rem 2.5rem; margin: 0 0 1rem; }
+.specs dt { color: var(--text-dim); font-size: 0.9rem; }
+.specs dd { margin: 0; font-weight: 700; }
+.facts dt { color: var(--text-dim); }
+.facts dd { margin: 0; min-width: 0; }
+@media (max-width: 560px) {
+  .facts { grid-template-columns: 1fr; gap: 0.15rem; }
+  .facts dd { margin-bottom: 0.6rem; }
+}
+.hash-row { display: flex; gap: 0.5rem; align-items: flex-start; }
+.hash { overflow-wrap: anywhere; word-break: break-all; }
+.copy {
+  flex: none;
+  font: inherit;
+  font-size: 0.85rem;
+  padding: 0.15rem 0.7rem;
+  border: 1px solid var(--line);
+  background: none;
+  color: var(--text);
+  cursor: pointer;
+}
+.copy:hover { background: var(--surface-high); }
+
+
+/* Docs: a sticky contents column beside the page; on narrow screens a menu above it. */
+.docs { display: grid; gap: 1.5rem; padding-top: 2rem; padding-bottom: 5rem; flex: 1; width: 100%; }
+@media (min-width: 60rem) {
+  .docs { grid-template-columns: 14rem minmax(0, 1fr); gap: 4rem; padding-top: 3rem; }
+}
+.docs-side ul { list-style: none; margin: 0; padding: 0; }
+.docs-side li { margin: 0; }
+.docs-side a {
+  display: block;
+  padding: 0.45rem 0.9rem;
+  border-left: 3px solid var(--line);
+  color: var(--text-dim);
+  text-decoration: none;
+}
+.docs-side a:hover { color: var(--text); border-left-color: var(--text-dim); }
+.docs-side a[aria-current] { color: var(--text); font-weight: 700; border-left-color: var(--accent); background: var(--surface); }
+.docs-nav { display: none; }
+.docs-nav-title { font-weight: 700; margin: 0 0 0.75rem; }
+.docs-menu { border: 1px solid var(--line); background: var(--surface); }
+.docs-menu summary { padding: 0.75rem 1rem; font-weight: 700; cursor: pointer; }
+.docs-menu ul { padding-bottom: 0.5rem; }
+@media (min-width: 60rem) {
+  .docs-menu { display: none; }
+  .docs-nav { display: block; position: sticky; top: 2rem; }
+}
+.docs-main { min-width: 0; }
+.docs-main h1 { margin-bottom: 0.5em; }
+.docs-main h2 { font-size: 1.44rem; margin: 2.5rem 0 0.6rem; }
+.docs-main .lede { margin-top: 0; margin-bottom: 2rem; }
+.docs-main li { margin-bottom: 0.4rem; }
+
+.topics {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+}
+.topics li { margin: 0; max-width: none; }
+.topics a {
+  display: block;
+  height: 100%;
+  padding: 1.25rem 1.4rem 1.4rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--text);
+  text-decoration: none;
+}
+.topics strong { display: block; font-size: 1.2rem; margin-bottom: 0.35rem; }
+.topics span { color: var(--text-dim); }
+
+/* Install steps are a real sequence, so they are numbered. */
+.steps { list-style: none; counter-reset: step; margin: 2.5rem 0 0; padding: 0; }
+.steps > li {
+  counter-increment: step;
+  position: relative;
+  padding: 0 0 2rem 3.75rem;
+  margin: 0;
+  max-width: calc(var(--measure) + 3.75rem);
+}
+.steps > li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2.4rem;
+  height: 2.4rem;
+  display: grid;
+  place-items: center;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-weight: 700;
+  font-size: 1.15rem;
+}
+.steps > li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: calc(1.2rem - 1px);
+  top: 2.9rem;
+  bottom: 0.5rem;
+  width: 2px;
+  background: var(--line);
+}
+.docs-main .steps h2 { margin: 0.3rem 0 0.6rem; font-size: 1.33rem; }
+
+.callout {
+  max-width: var(--measure);
+  margin: 1.5rem 0;
+  padding: 1rem 1.25rem;
+  background: var(--surface);
+  border-left: 4px solid var(--accent);
+}
+.callout p { margin: 0; }
+.callout.warn { border-left-color: var(--danger); background: rgb(255 138 128 / 0.08); }
+
+/* Controller buttons in running text: round face buttons, bars for the others. */
+.pad-btn {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.7em;
+  height: 1.7em;
+  padding: 0 0.15em;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  font-size: 0.85em;
+  font-weight: 700;
+  line-height: 1;
+  vertical-align: 0.05em;
+}
+.pad-btn.bar { border-radius: 0; padding: 0 0.5em; }
+
+.controls { width: 100%; max-width: 46rem; border-collapse: collapse; margin: 0.5rem 0 1rem; }
+.controls th, .controls td { text-align: left; vertical-align: top; padding: 0.7rem 1rem 0.7rem 0; border-bottom: 1px solid var(--line); }
+.controls thead th { color: var(--text-dim); font-weight: 400; }
+.controls tbody th { font-weight: 700; width: 36%; }
+.controls kbd, .combo { white-space: nowrap; }
+@media (max-width: 560px) {
+  .controls, .controls tbody, .controls tr, .controls th, .controls td { display: block; }
+  .controls thead { display: none; }
+  .controls tr { padding: 0.6rem 0; border-bottom: 1px solid var(--line); }
+  .controls th, .controls td { border: 0; padding: 0.1rem 0; }
+}
+
+.pager {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--line);
+  max-width: 46rem;
+}
+.pager a {
+  display: block;
+  min-width: min(100%, 14rem);
+  padding: 0.9rem 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--text);
+  font-weight: 700;
+  text-decoration: none;
+}
+.pager span { display: block; color: var(--text-dim); font-weight: 400; font-size: 0.9rem; }
+.pager .next { margin-left: auto; text-align: right; }
+
+/* Demo: a square player sized to fit the window under the header, with its control bar */
+/* The player is drawn as a TV: a square bezel with a chin and a power light, on a neck and a
+   flat base. It is sized so the TV, its stand and the buttons fit under the header. */
+.player, .page.try section {
+  width: min(100%, calc((100svh - 14rem) * 16 / 9));
+  min-width: min(100%, 20rem);
+  margin-left: auto;
+  margin-right: auto;
+}
+.page.try section { max-width: none; }
+.bezel {
+  padding: 10px 10px 0;
+  background: #05070b;
+  border: 1px solid var(--surface-high);
+  box-shadow: 0 18px 40px rgb(0 0 0 / 0.45);
+}
+.chin { position: relative; height: 18px; }
+.chin::after {
+  content: "";
+  position: absolute;
+  right: 8px;
+  top: 7px;
+  width: 4px;
+  height: 4px;
+  background: var(--positive);
+  opacity: 0.8;
+}
+.stand { display: flex; flex-direction: column; align-items: center; }
+.stand::before {
+  content: "";
+  width: 9%;
+  min-width: 2.5rem;
+  height: 1.5rem;
+  background: linear-gradient(90deg, #12151d, var(--surface-high) 50%, #12151d);
+}
+.stand::after {
+  content: "";
+  width: 38%;
+  min-width: 9rem;
+  height: 0.5rem;
+  background: var(--surface-high);
+  border-top: 1px solid #3a4360;
+}
+.tv {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  background: #000;
+}
+.tv iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.tv-start {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  width: 100%;
+  border: 0;
+  background: radial-gradient(circle at 50% 40%, var(--surface-high), var(--bg) 70%);
+  color: var(--text);
+  font: inherit;
+  font-size: 1.3rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.tv-start .meta { font-weight: 400; font-size: 0.9rem; }
+.play {
+  width: 4.5rem;
+  height: 4.5rem;
+  background: var(--accent);
+  position: relative;
+}
+.play::after {
+  content: "";
+  position: absolute;
+  left: 36%;
+  top: 26%;
+  border-style: solid;
+  border-width: 1.15rem 0 1.15rem 1.6rem;
+  border-color: transparent transparent transparent var(--on-accent);
+}
+.tv-start:hover .play { filter: brightness(1.15); }
+.tv-empty { display: flex; align-items: center; justify-content: center; padding: 2rem; text-align: center; }
+.tv-empty p { max-width: 34rem; color: var(--text-dim); }
+.player-bar {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+.player-bar button {
+  flex: none;
+  padding: 0.5rem 1.1rem;
+  border: 1px solid var(--surface-high);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.player-bar button:hover:not(:disabled) { background: var(--surface-high); }
+.player-bar button:disabled { color: var(--text-dim); opacity: 0.5; cursor: default; }
+.player:fullscreen { display: flex; flex-direction: column; width: 100%; background: #000; }
+.player:fullscreen .bezel { flex: 1; display: flex; flex-direction: column; padding: 0; border: 0; box-shadow: none; }
+.player:fullscreen .tv { flex: 1; aspect-ratio: auto; }
+.player:fullscreen .chin, .player:fullscreen .stand { display: none; }
+.player:fullscreen .player-bar { margin: 0; padding: 0.5rem; }
+
+/* Demo: a controller from above and from the front, with the keyboard key for each button it
+   uses. Side by side when there's room, else stacked; on a phone they scroll sideways rather
+   than shrinking the labels past reading. */
+.pad-diagram {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem 2rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+.pad-diagram svg { display: block; height: auto; }
+.pad-diagram .top { flex: 900 1 30rem; min-width: 30rem; max-width: 40rem; }
+.pad-diagram .front { flex: 640 1 22rem; min-width: 22rem; max-width: 28rem; }
+.pad-diagram text { font: 700 16px "Atkinson Hyperlegible", system-ui, sans-serif; text-anchor: middle; fill: var(--text); }
+.pad .body { fill: var(--surface); stroke: var(--surface-high); stroke-width: 2; }
+.pad .bumper { fill: var(--surface-high); stroke: var(--accent); stroke-width: 2; }
+.pad .ctl { fill: var(--surface-high); stroke: var(--accent); stroke-width: 2; }
+.pad .idle { stroke: none; fill-opacity: 0.6; }
+.pad .dim { stroke: #3a4360; }
+.pad text.idle { fill: var(--text-dim); }
+.leads path { fill: none; stroke: var(--accent); stroke-width: 1.5; opacity: 0.7; }
+.caps rect { fill: var(--surface-high); stroke: #3a4360; }
+
+/* Footer: link columns, then the project line. */
+.site-footer { background: var(--bg-deep); border-top: 1px solid var(--line); color: var(--text-dim); font-size: 0.95rem; }
+.site-footer .wrap { padding-top: 1.5rem; padding-bottom: 1.25rem; }
+.footer-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); gap: 1rem 2rem; max-width: 48rem; margin: 0 auto; text-align: center; }
+.footer-cols h2 { font-size: 1rem; color: var(--text); margin: 0 0 0.4rem; }
+.footer-cols ul { list-style: none; margin: 0; padding: 0; }
+.footer-cols li { margin: 0.15rem 0; }
+.footer-cols a { color: var(--text-dim); }
+.footer-cols a:hover { color: var(--text); }

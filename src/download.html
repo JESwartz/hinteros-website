@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Download HinterOS</title>
+  <meta name="description" content="Download the HinterOS {{version}} installer ISO. Verify its SHA-256 checksum and signature.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+  <script src="/site.js" defer></script>
+</head>
+<body>
+{{header}}
+  <main class="wrap page">
+    <h1>Download HinterOS</h1>
+
+    <section class="download-card" aria-labelledby="iso-heading">
+      <div>
+        <h2 id="iso-heading">HinterOS {{version}} <span class="tag">{{channel}}</span></h2>
+        <p class="meta">64-bit (x86_64), {{iso_size}}</p>
+      </div>
+      <a class="button primary" href="{{iso_url}}" download>Download ISO</a>
+      <dl class="facts">
+        <dt>File</dt>
+        <dd><code>{{iso_name}}</code> ({{iso_bytes}} bytes)</dd>
+        <dt>SHA-256</dt>
+        <dd class="hash-row">
+          <code class="hash" id="sha256">{{sha256}}</code>
+          <button type="button" class="copy" data-copy="sha256">Copy</button>
+        </dd>
+        <dt>Checksums</dt>
+        <dd><a href="{{sha256sums_url}}">SHA256SUMS</a>, signature <a href="{{signature_url}}">SHA256SUMS.sig</a></dd>
+        <dt>Source</dt>
+        <dd><a href="{{source_url}}"><code>{{commit_short}}</code></a>, signed {{channel}} release commit</dd>
+      </dl>
+    </section>
+
+    <section aria-labelledby="req-heading">
+      <h2 id="req-heading">Requirements</h2>
+      <dl class="specs">
+        <div><dt>Processor</dt><dd>64-bit (x86_64)</dd></div>
+        <div><dt>Memory</dt><dd>4 GB RAM minimum</dd></div>
+        <div><dt>Firmware</dt><dd>UEFI</dd></div>
+        <div><dt>Storage</dt><dd>18 GB minimum</dd></div>
+      </dl>
+      <p>For installation, refer to the <a href="/docs/install/">install guide</a>.</p>
+    </section>
+
+    <section aria-labelledby="verify-heading">
+      <h2 id="verify-heading">Check download</h2>
+      <p>Compare the SHA-256 checksum of the ISO with the value above. The HinterOS release key signs <code>SHA256SUMS</code>. Verify the signature with <code>ssh-keygen -Y verify</code>.</p>
+      <dl class="tech">
+        <dt>Signer</dt><dd><code>{{signer_principal}}</code></dd>
+        <dt>Namespace</dt><dd><code>{{signer_namespace}}</code></dd>
+        <dt>Key fingerprint</dt><dd><code>{{signer_fingerprint}}</code></dd>
+        <dt>Allowed signers</dt><dd><a href="{{allowed_signers_url}}"><code>allowed_signers</code></a></dd>
+      </dl>
+    </section>
+  </main>
+{{footer}}
+</body>
+</html>

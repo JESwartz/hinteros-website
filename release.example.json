@@ -1,0 +1,21 @@
+{
+  "version": "1.0.0",
+  "channel": "stable",
+  "date": "2026-11-01",
+  "commit": "0000000000000000000000000000000000000000",
+  "source": "https://git.hinteros.org/hinteros/src/branch/stable",
+  "iso": {
+    "name": "hinteros-1.0.0-x86_64.iso",
+    "url": "https://git.hinteros.org/hinteros/releases/download/v1.0.0/hinteros-1.0.0-x86_64.iso",
+    "size": 4080218931,
+    "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "sha256sums_url": "https://git.hinteros.org/hinteros/releases/download/v1.0.0/SHA256SUMS",
+  "signature_url": "https://git.hinteros.org/hinteros/releases/download/v1.0.0/SHA256SUMS.sig",
+  "signer": {
+    "principal": "release",
+    "namespace": "file",
+    "fingerprint": "SHA256:NuERttXtUYjtSTqt7kHUqs7TW6rWSHjHOIUlOOADpCE"
+  },
+  "notes": "Example notes: the real ones come from release/notes.md of the release commit.\n\n- Profiles: everyone in the household gets their own profile with its own apps, Steam account, settings and an optional PIN.\n- Controller-driven home screen with Home, Games, Apps and Settings.\n- Updates are signed: the box only installs a channel tip signed with a HinterOS release key it already trusts."
+}

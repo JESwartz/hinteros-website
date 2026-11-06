@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{doc_head_title}}</title>
+  <meta name="description" content="{{doc_description}}">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+{{header}}
+  <div class="wrap docs">
+    <div class="docs-side">
+      <details class="docs-menu">
+        <summary>Documentation contents</summary>
+        <ul>
+{{docs_nav}}
+        </ul>
+      </details>
+      <nav class="docs-nav" aria-label="Documentation">
+        <p class="docs-nav-title">Documentation</p>
+        <ul>
+{{docs_nav}}
+        </ul>
+      </nav>
+    </div>
+    <main class="docs-main">
+      <h1>{{doc_title}}</h1>
+{{doc_content}}
+      <nav class="pager" aria-label="Previous and next page">
+      {{docs_pager}}
+      </nav>
+    </main>
+  </div>
+{{footer}}
+</body>
+</html>

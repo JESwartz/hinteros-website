@@ -1,0 +1,177 @@
+// Copy buttons on the download page, the click-to-start launcher demo on the Demo page, and
+// on the home page the Tour carousel, the Technical stack building and the Features band's lines.
+
+for (const button of document.querySelectorAll("button[data-copy]")) {
+  button.addEventListener("click", async () => {
+    const text = document.getElementById(button.dataset.copy).textContent.trim();
+    try {
+      await navigator.clipboard.writeText(text);
+      button.textContent = "Copied";
+    } catch {
+      button.textContent = "Select and copy";
+    }
+    setTimeout(() => { button.textContent = "Copy"; }, 2000);
+  });
+}
+
+const start = document.getElementById("demo-start");
+if (start) {
+  const player = document.getElementById("player");
+  const home = document.getElementById("demo-home");
+  const fullscreen = document.getElementById("demo-fullscreen");
+  let frame;
+
+  // The demo is several MB, so it loads only when asked for.
+  start.addEventListener("click", () => {
+    frame = document.createElement("iframe");
+    frame.src = "/demo/";
+    frame.title = "HinterOS launcher demo";
+    frame.allow = "fullscreen; gamepad";
+    frame.addEventListener("load", () => frame.focus());
+    start.replaceWith(frame);
+    frame.focus();
+    home.disabled = false;
+    fullscreen.disabled = !player.requestFullscreen;
+  });
+
+  // The launcher takes the Home key as the controller's Guide button. The demo is same-origin,
+  // so the key is sent to whatever has focus inside it.
+  home.addEventListener("click", () => {
+    const doc = frame.contentDocument;
+    const target = doc.activeElement || doc.body;
+    for (const type of ["keydown", "keyup"]) {
+      target.dispatchEvent(new KeyboardEvent(type, {
+        key: "Home", code: "Home", bubbles: true, cancelable: true, composed: true,
+      }));
+    }
+    frame.focus();
+  });
+
+  fullscreen.addEventListener("click", () => {
+    if (document.fullscreenElement) document.exitFullscreen();
+    else player.requestFullscreen().then(() => frame.focus(), () => {});
+  });
+  document.addEventListener("fullscreenchange", () => {
+    fullscreen.textContent = document.fullscreenElement ? "Exit full screen" : "Full screen";
+    frame?.focus();
+  });
+}
+
+// The Tour carousel: the tabs and buttons scroll the track sideways only, and the tab of the
+// slide in view is marked.
+const track = document.querySelector(".tour-track");
+if (track) {
+  const slides = [...track.children];
+  const tabs = [...document.querySelectorAll(".tour-tabs a")];
+  const step = document.querySelector(".tour-step");
+  let current = 0;
+  const go = (k) => track.scrollTo({ left: slides[(k + slides.length) % slides.length].offsetLeft });
+  const mark = () => {
+    const pitch = slides[1].offsetLeft - slides[0].offsetLeft;
+    current = Math.round(track.scrollLeft / pitch);
+    tabs.forEach((tab, k) => tab.setAttribute("aria-current", k === current));
+  };
+  tabs.forEach((tab, k) => tab.addEventListener("click", (event) => { event.preventDefault(); go(k); }));
+  for (const button of step.querySelectorAll("button")) {
+    button.addEventListener("click", () => go(current + Number(button.dataset.step)));
+  }
+  track.addEventListener("scroll", mark, { passive: true });
+  step.hidden = false;
+  mark();
+}
+
+// The Technical stack building: the floors (SVG groups) are tabs. Hover, focus or a click picks a floor, and
+// the up and down arrow keys move between floors.
+const stack = document.querySelector(".stack");
+if (stack) {
+  const floors = [...stack.querySelectorAll(".floor")];
+  const building = stack.querySelector(".building");
+  building.setAttribute("role", "tablist");
+  building.setAttribute("aria-orientation", "vertical");
+  const pick = (floor) => {
+    for (const f of floors) {
+      const on = f === floor;
+      f.setAttribute("aria-selected", on);
+      f.tabIndex = on ? 0 : -1;
+      document.getElementById(f.getAttribute("aria-controls")).classList.toggle("on", on);
+    }
+  };
+  for (const [k, floor] of floors.entries()) {
+    floor.setAttribute("role", "tab");
+    document.getElementById(floor.getAttribute("aria-controls")).setAttribute("role", "tabpanel");
+    floor.addEventListener("mouseenter", () => pick(floor));
+    floor.addEventListener("focus", () => pick(floor));
+    floor.addEventListener("click", () => pick(floor));
+    floor.addEventListener("keydown", (event) => {
+      // The floors are drawn bottom up, so up is the next floor in the list.
+      const move = { ArrowUp: 1, ArrowDown: -1 }[event.key];
+      if (!move) return;
+      event.preventDefault();
+      floors[(k + move + floors.length) % floors.length].focus();
+    });
+  }
+  stack.classList.add("live");
+  pick(floors[0]);
+}
+
+// The home page's Features band: a web of lines, hexagons at the top left, triangles in the
+// middle and squares at the bottom right. The hexagon region is the corner above the line from
+// the band's top middle to its bottom-left corner; the square region is the corner below the
+// line from its top-right corner to its bottom middle. It is drawn to the band's own size so
+// those lines meet the corners.
+//
+// It is one triangle lattice, so the regions share their points and edges: hexagons are the
+// lattice without every third point, and squares are the lattice without one diagonal of each
+// pair of triangles and without the half-cell shift of every other row. All rows have the same
+// height, between a triangle's and a square's, so the rows stay straight.
+const band = document.querySelector(".features");
+if (band) {
+  const CELL = 46;
+  const ROW = CELL * 0.933;
+  const mod = (a, n) => ((a % n) + n) % n;
+  const smooth = (a, b, v) => {
+    const t = Math.min(1, Math.max(0, (v - a) / (b - a)));
+    return t * t * (3 - 2 * t);
+  };
+
+  const draw = () => {
+    const w = band.clientWidth;
+    const h = band.clientHeight;
+    // 0 at the top left, 1 on the hexagon line, 2 on the square line, 3 at the bottom right.
+    const u = (x, y) => (2 * x) / w + y / h;
+    const seam = 0.8 * CELL * Math.hypot(2 / w, 1 / h); // the shift fades over about a cell
+    const pts = new Map();
+    const key = (i, j) => `${i},${j}`;
+    for (let j = -1; j <= Math.ceil(h / ROW) + 1; j++) {
+      const shift = mod(j, 2) / 2;
+      for (let i = -1; i <= Math.ceil(w / CELL) + 1; i++) {
+        const x0 = (i + shift) * CELL;
+        const y = j * ROW;
+        const t = smooth(2 - seam, 2 + seam, u(x0, y));
+        const centre = mod(i - Math.floor(j / 2) - j, 3) === 0 && u(x0, y) < 1;
+        pts.set(key(i, j), { x: (i + shift * (1 - t)) * CELL, y, t, centre });
+      }
+    }
+    let d = "";
+    const line = (a, b) => { d += `M${a.x.toFixed(1)} ${a.y.toFixed(1)}L${b.x.toFixed(1)} ${b.y.toFixed(1)}`; };
+    for (const [k, p] of pts) {
+      if (p.centre) continue;
+      const [i, j] = k.split(",").map(Number);
+      const right = pts.get(key(i + 1, j));
+      const below = pts.get(key(i, j + 1));
+      const slant = pts.get(key(mod(j, 2) ? i + 1 : i - 1, j + 1));
+      if (right && !right.centre) line(p, right);
+      if (below && !below.centre) line(p, below);
+      if (slant && !slant.centre && Math.max(p.t, slant.t) < 0.5) line(p, slant);
+    }
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}">` +
+      `<path fill="none" stroke="#232b40" stroke-width="1.5" stroke-linecap="round" d="${d}"/></svg>`;
+    band.style.backgroundImage = `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
+  };
+
+  let size = "";
+  new ResizeObserver(() => {
+    const now = `${band.clientWidth}x${band.clientHeight}`;
+    if (now !== size) { size = now; draw(); }
+  }).observe(band);
+}

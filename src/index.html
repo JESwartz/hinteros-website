@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HinterOS</title>
+  <meta name="description" content="HinterOS is a NixOS-based Linux distribution with a controller interface for gaming and media.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+  <script src="/site.js" defer></script>
+</head>
+<body>
+{{header}}
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-text">
+          <h1>HinterOS</h1>
+          <p class="lede">A NixOS-based Linux distribution with a controller interface for gaming and media.</p>
+          <div class="actions">
+            <a class="button primary" href="/download/">Download {{version}}</a>
+            <a class="button" href="/try/">Try the launcher</a>
+          </div>
+        </div>
+        <div class="player hero-tv">
+          <div class="bezel">
+            <div class="tv">
+              <img src="/img/shots/home-1600.webp" srcset="/img/shots/home-960.webp 960w, /img/shots/home-1600.webp 1600w" sizes="(min-width: 60rem) 40rem, 100vw" width="1600" height="900" alt="The HinterOS Home screen. Neverball and SuperTuxKart are under Continue, and the installed apps are below.">
+            </div>
+            <div class="chin"></div>
+          </div>
+          <div class="stand" aria-hidden="true"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features" aria-labelledby="features-heading">
+      <div class="wrap">
+        <h2 id="features-heading" class="section-heading">Features</h2>
+        <div class="grid">
+          <article>
+            <h3>Controller only</h3>
+            <p>Use a controller for all of the system: the installer, Home, Store and Settings. The Guide button always opens Home.</p>
+          </article>
+          <article>
+            <h3>Profiles for each person</h3>
+            <p>Each person has a profile with its own apps, Steam library, settings and PIN. A guest profile is deleted when the computer restarts.</p>
+          </article>
+          <article>
+            <h3>Sandboxed apps</h3>
+            <p>Each app can see only its own files. An app can use the microphone, Downloads, the controller or the local network only with your permission.</p>
+          </article>
+          <article>
+            <h3>Curated store and Steam</h3>
+            <p>Install apps and games from a curated store. Your Steam games show in Games, next to the other games.</p>
+          </article>
+          <article>
+            <h3>Jellyfin and Plex</h3>
+            <p>Watch media with the Jellyfin and Plex apps. You can also run a Jellyfin or Plex Media Server on the same computer.</p>
+          </article>
+          <article>
+            <h3>Pointer and on-screen keyboard</h3>
+            <p>In web apps such as Firefox, the right stick moves a pointer. Hold Guide and push Y to open the on-screen keyboard.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="tour" aria-labelledby="tour-heading" aria-roledescription="carousel">
+      <div class="wrap">
+        <h2 id="tour-heading" class="section-heading">Tour</h2>
+        <nav class="tour-tabs" aria-label="Tour screens">
+          <a href="#tour-store">Store</a>
+          <a href="#tour-store-app">Permissions</a>
+          <a href="#tour-profiles">Profiles</a>
+          <a href="#tour-keyboard">On-screen keyboard</a>
+          <a href="#tour-server">Media server</a>
+          <span class="tour-step" hidden>
+            <button type="button" data-step="-1" aria-label="Previous screen">&lsaquo;</button>
+            <button type="button" data-step="1" aria-label="Next screen">&rsaquo;</button>
+          </span>
+        </nav>
+        <div class="tour-track" role="region" tabindex="0" aria-label="Screens">
+          <figure class="tour-slide" id="tour-store" role="group" aria-roledescription="slide" aria-label="1 of 5">
+            <img src="/img/shots/store-1600.webp" srcset="/img/shots/store-960.webp 960w, /img/shots/store-1600.webp 1600w" sizes="(min-width: 60rem) 44rem, 100vw" width="1600" height="900" loading="lazy" alt="The Store tab. A list of categories is on the left, and games with their sizes are on the right.">
+            <figcaption>
+              <h3>Store</h3>
+              <p>The Store has a curated list of apps and games, in categories. Each profile installs its own apps.</p>
+            </figcaption>
+          </figure>
+          <figure class="tour-slide" id="tour-store-app" role="group" aria-roledescription="slide" aria-label="2 of 5">
+            <img src="/img/shots/store-app-1600.webp" srcset="/img/shots/store-app-960.webp 960w, /img/shots/store-app-1600.webp 1600w" sizes="(min-width: 60rem) 44rem, 100vw" width="1600" height="900" loading="lazy" alt="The Store page for Moonlight. It shows the Install button and two permissions: Controller and Local network.">
+            <figcaption>
+              <h3>Permissions</h3>
+              <p>Each app page shows the size of the app and the permissions that it needs. Apps run in a sandbox and use only the permissions that you give them.</p>
+            </figcaption>
+          </figure>
+          <figure class="tour-slide" id="tour-profiles" role="group" aria-roledescription="slide" aria-label="3 of 5">
+            <img src="/img/shots/profiles-1600.webp" srcset="/img/shots/profiles-960.webp 960w, /img/shots/profiles-1600.webp 1600w" sizes="(min-width: 60rem) 44rem, 100vw" width="1600" height="900" loading="lazy" alt="The profile picker. It shows five profiles, one with a lock, and Add profile.">
+            <figcaption>
+              <h3>Profiles</h3>
+              <p>Each person has a profile with its own apps, Steam account and settings. A PIN can lock a profile. The box clears the Guest profile when it restarts.</p>
+            </figcaption>
+          </figure>
+          <figure class="tour-slide" id="tour-keyboard" role="group" aria-roledescription="slide" aria-label="4 of 5">
+            <img src="/img/shots/keyboard-1600.webp" srcset="/img/shots/keyboard-960.webp 960w, /img/shots/keyboard-1600.webp 1600w" sizes="(min-width: 60rem) 44rem, 100vw" width="1600" height="900" loading="lazy" alt="The on-screen keyboard below a text field, with the name Jor typed.">
+            <figcaption>
+              <h3>On-screen keyboard</h3>
+              <p>Type with the controller. The keyboard opens when a text field needs text.</p>
+            </figcaption>
+          </figure>
+          <figure class="tour-slide" id="tour-server" role="group" aria-roledescription="slide" aria-label="5 of 5">
+            <img src="/img/shots/server-1600.webp" srcset="/img/shots/server-960.webp 960w, /img/shots/server-1600.webp 1600w" sizes="(min-width: 60rem) 44rem, 100vw" width="1600" height="900" loading="lazy" alt="The Jellyfin server page. The server is running, and the Add library button is selected.">
+            <figcaption>
+              <h3>Media server</h3>
+              <p>The box can run a Jellyfin server for the other devices in your home.</p>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="technical" aria-labelledby="tech-heading">
+      <div class="wrap">
+        <h2 id="tech-heading" class="section-heading">Technical stack</h2>
+        <div class="stack">
+          <svg class="building" viewBox="-104 -228 208 356" aria-label="Technical stack">
+            <defs><pattern id="scan" width="4" height="4" patternUnits="userSpaceOnUse"><rect width="4" height="2" fill="rgb(255 255 255 / 0.16)"/></pattern></defs>
+            <path class="pad" d="M0.0 -2.0L110.9 62.0L0.0 126.0L-110.9 62.0Z"/>
+            <path class="pad-rim" d="M0.0 -2.0L110.9 62.0L0.0 126.0L-110.9 62.0Z"/>
+            <g class="floor" id="floor-nixos" aria-controls="layer-nixos">
+              <path class="edge back" d="M-86.6 50.0L0.0 0.0L86.6 50.0M0.0 0.0L0.0 -44.0"/>
+              <path class="face" d="M-86.6 50.0L0.0 100.0L0.0 56.0L-86.6 6.0ZM86.6 50.0L0.0 100.0L0.0 56.0L86.6 6.0ZM0.0 -44.0L86.6 6.0L0.0 56.0L-86.6 6.0Z"/>
+              <path class="scan" d="M-86.6 50.0L0.0 100.0L0.0 56.0L-86.6 6.0ZM86.6 50.0L0.0 100.0L0.0 56.0L86.6 6.0ZM0.0 -44.0L86.6 6.0L0.0 56.0L-86.6 6.0Z"/>
+              <path class="edge" d="M-86.6 50.0L0.0 100.0L0.0 56.0L-86.6 6.0ZM86.6 50.0L0.0 100.0L0.0 56.0L86.6 6.0ZM0.0 -44.0L86.6 6.0L0.0 56.0L-86.6 6.0Z"/>
+              <text transform="matrix(0.8660254 0.5 0 1 -86.6 50.0)" x="12" y="-16.5">NixOS</text>
+            </g>
+            <g class="floor" id="floor-daemon" aria-controls="layer-daemon">
+              <path class="edge back" d="M-86.6 6.0L0.0 -44.0L86.6 6.0M0.0 -44.0L0.0 -88.0"/>
+              <path class="face" d="M-86.6 6.0L0.0 56.0L0.0 12.0L-86.6 -38.0ZM86.6 6.0L0.0 56.0L0.0 12.0L86.6 -38.0ZM0.0 -88.0L86.6 -38.0L0.0 12.0L-86.6 -38.0Z"/>
+              <path class="scan" d="M-86.6 6.0L0.0 56.0L0.0 12.0L-86.6 -38.0ZM86.6 6.0L0.0 56.0L0.0 12.0L86.6 -38.0ZM0.0 -88.0L86.6 -38.0L0.0 12.0L-86.6 -38.0Z"/>
+              <path class="edge" d="M-86.6 6.0L0.0 56.0L0.0 12.0L-86.6 -38.0ZM86.6 6.0L0.0 56.0L0.0 12.0L86.6 -38.0ZM0.0 -88.0L86.6 -38.0L0.0 12.0L-86.6 -38.0Z"/>
+              <text transform="matrix(0.8660254 0.5 0 1 -86.6 6.0)" x="12" y="-16.5">Daemon</text>
+            </g>
+            <g class="floor" id="floor-input" aria-controls="layer-input">
+              <path class="edge back" d="M-86.6 -38.0L0.0 -88.0L86.6 -38.0M0.0 -88.0L0.0 -132.0"/>
+              <path class="face" d="M-86.6 -38.0L0.0 12.0L0.0 -32.0L-86.6 -82.0ZM86.6 -38.0L0.0 12.0L0.0 -32.0L86.6 -82.0ZM0.0 -132.0L86.6 -82.0L0.0 -32.0L-86.6 -82.0Z"/>
+              <path class="scan" d="M-86.6 -38.0L0.0 12.0L0.0 -32.0L-86.6 -82.0ZM86.6 -38.0L0.0 12.0L0.0 -32.0L86.6 -82.0ZM0.0 -132.0L86.6 -82.0L0.0 -32.0L-86.6 -82.0Z"/>
+              <path class="edge" d="M-86.6 -38.0L0.0 12.0L0.0 -32.0L-86.6 -82.0ZM86.6 -38.0L0.0 12.0L0.0 -32.0L86.6 -82.0ZM0.0 -132.0L86.6 -82.0L0.0 -32.0L-86.6 -82.0Z"/>
+              <text transform="matrix(0.8660254 0.5 0 1 -86.6 -38.0)" x="12" y="-16.5">Input</text>
+            </g>
+            <g class="floor" id="floor-session" aria-controls="layer-session">
+              <path class="edge back" d="M-86.6 -82.0L0.0 -132.0L86.6 -82.0M0.0 -132.0L0.0 -176.0"/>
+              <path class="face" d="M-86.6 -82.0L0.0 -32.0L0.0 -76.0L-86.6 -126.0ZM86.6 -82.0L0.0 -32.0L0.0 -76.0L86.6 -126.0ZM0.0 -176.0L86.6 -126.0L0.0 -76.0L-86.6 -126.0Z"/>
+              <path class="scan" d="M-86.6 -82.0L0.0 -32.0L0.0 -76.0L-86.6 -126.0ZM86.6 -82.0L0.0 -32.0L0.0 -76.0L86.6 -126.0ZM0.0 -176.0L86.6 -126.0L0.0 -76.0L-86.6 -126.0Z"/>
+              <path class="edge" d="M-86.6 -82.0L0.0 -32.0L0.0 -76.0L-86.6 -126.0ZM86.6 -82.0L0.0 -32.0L0.0 -76.0L86.6 -126.0ZM0.0 -176.0L86.6 -126.0L0.0 -76.0L-86.6 -126.0Z"/>
+              <text transform="matrix(0.8660254 0.5 0 1 -86.6 -82.0)" x="12" y="-16.5">Session</text>
+            </g>
+            <g class="floor" id="floor-sandbox" aria-controls="layer-sandbox">
+              <path class="edge back" d="M-86.6 -126.0L0.0 -176.0L86.6 -126.0M0.0 -176.0L0.0 -220.0"/>
+              <path class="face" d="M-86.6 -126.0L0.0 -76.0L0.0 -120.0L-86.6 -170.0ZM86.6 -126.0L0.0 -76.0L0.0 -120.0L86.6 -170.0ZM0.0 -220.0L86.6 -170.0L0.0 -120.0L-86.6 -170.0Z"/>
+              <path class="scan" d="M-86.6 -126.0L0.0 -76.0L0.0 -120.0L-86.6 -170.0ZM86.6 -126.0L0.0 -76.0L0.0 -120.0L86.6 -170.0ZM0.0 -220.0L86.6 -170.0L0.0 -120.0L-86.6 -170.0Z"/>
+              <path class="edge" d="M-86.6 -126.0L0.0 -76.0L0.0 -120.0L-86.6 -170.0ZM86.6 -126.0L0.0 -76.0L0.0 -120.0L86.6 -170.0ZM0.0 -220.0L86.6 -170.0L0.0 -120.0L-86.6 -170.0Z"/>
+              <text transform="matrix(0.8660254 0.5 0 1 -86.6 -126.0)" x="12" y="-16.5">Sandbox</text>
+            </g>
+          </svg>
+          <div class="layers">
+            <div class="layer" id="layer-nixos" aria-labelledby="floor-nixos">
+              <h3>NixOS</h3>
+              <p>HinterOS is a layer of NixOS modules and an overlay on nixpkgs. It is not a fork.</p>
+              <ul>
+                <li>It follows <code>nixos-unstable</code>. Each channel (stable, beta and main) is one locked flake.</li>
+                <li>One file, <code>/etc/hinteros/state.json</code>, keeps all the settings of a box.</li>
+                <li>Each update is a signed commit. The box verifies the signature before it rebuilds.</li>
+                <li>If the launcher or the daemon does not start, the box starts the previous generation.</li>
+              </ul>
+            </div>
+            <div class="layer" id="layer-daemon" aria-labelledby="floor-daemon">
+              <h3>Daemon</h3>
+              <p>Two Rust services control the system. The launcher contains no system logic.</p>
+              <ul>
+                <li><code>hinteros-session</code> runs as the user. It controls input, apps, audio, display, Wi-Fi and Bluetooth.</li>
+                <li><code>hinteros-system</code> runs as its own account, not as root. It controls settings, updates, rollback and app installs.</li>
+                <li>The services use JSON-RPC on Unix sockets. polkit authorizes each change, and the journal records it.</li>
+              </ul>
+            </div>
+            <div class="layer" id="layer-input" aria-labelledby="floor-input">
+              <h3>Input</h3>
+              <p>InputPlumber takes the physical controllers and gives virtual controllers to the system.</p>
+              <ul>
+                <li>When the launcher is in focus, it gets all input. When an app is in focus, the input goes directly to the app.</li>
+                <li>The Guide button always opens Home. On a keyboard, use <kbd>Ctrl</kbd>+<kbd>Super</kbd>+<kbd>D</kbd>.</li>
+                <li>Hold Guide and push Y to open the on-screen keyboard.</li>
+                <li>In TV web apps, the right stick moves a pointer and RT clicks.</li>
+              </ul>
+            </div>
+            <div class="layer" id="layer-session" aria-labelledby="floor-session">
+              <h3>Session</h3>
+              <p>gamescope runs the session. A Flutter launcher is the home app.</p>
+              <ul>
+                <li>Each app has its own X display. An app cannot read the text that you type in the launcher, for example a PIN.</li>
+                <li>The launcher shows your Steam library and starts Steam games through Steam.</li>
+                <li>PipeWire controls audio. HDMI is the default output.</li>
+                <li>If you do not confirm a new resolution in 15 seconds, the display goes back to the previous one.</li>
+              </ul>
+            </div>
+            <div class="layer" id="layer-sandbox" aria-labelledby="floor-sandbox">
+              <h3>Sandbox</h3>
+              <p>Each app from the Store runs in a Bubblewrap sandbox with a system call filter.</p>
+              <ul>
+                <li>An app has its own home folder, the GPU and its own display. It cannot see other apps or your files.</li>
+                <li>Apps can ask for four permissions: controller, microphone, Downloads and local network. Each profile can deny each permission.</li>
+                <li>Apps are Nix packages from the HinterOS catalog. Each profile installs its own apps without a system rebuild.</li>
+                <li>Steam and Steam games do not run in the sandbox.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+{{footer}}
+</body>
+</html>
