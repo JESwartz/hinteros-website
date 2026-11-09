@@ -174,7 +174,10 @@ kbd {
   margin-bottom: 1.5rem;
 }
 .hero .lede { margin-bottom: 2.25rem; }
-.actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+/* The row is only as wide as its buttons, so they grow only when they wrap: then each fills
+   the column. */
+.actions { display: flex; gap: 1rem; flex-wrap: wrap; width: max-content; max-width: 100%; }
+.actions .button { flex: 1 1 auto; }
 .player.hero-tv { width: 100%; min-width: 0; margin: 0; }
 .hero-tv .bezel { box-shadow: 0 0 0 1px #000, 0 30px 140px -20px rgb(122 162 255 / 0.32), 0 18px 40px rgb(0 0 0 / 0.5); }
 .tv img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
