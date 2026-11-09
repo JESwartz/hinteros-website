@@ -195,15 +195,16 @@ kbd {
 }
 .tour-tabs a:hover { color: var(--text); }
 .tour-tabs a[aria-current="true"] { color: var(--text); border-bottom-color: var(--accent); }
-/* When the names do not fit on one line, only the current one shows, and a bar along the bottom
-   fills as you go through the screens. */
+/* When the names do not fit on one line, only the current one shows, and a bar one screen long
+   moves along the bottom as you go through the screens. */
 .tour-tabs { position: relative; }
 .tour-progress { display: none; }
 .tour-tabs.compact a:not([aria-current="true"]) { display: none; }
 .tour-tabs.compact a[aria-current="true"] { border-bottom-color: transparent; }
 .tour-tabs.compact .tour-progress {
   display: block; position: absolute; left: 0; bottom: -1px; height: 3px;
-  width: calc(var(--progress, 0) * 100%); background: var(--accent);
+  width: calc(100% / var(--screens, 1)); background: var(--accent);
+  transform: translateX(calc(var(--screen, 0) * 100%));
 }
 .tour-step, .feature-step { display: flex; gap: 0.5rem; margin-left: auto; padding: 0.4rem 0; }
 .tour-step[hidden], .feature-step[hidden] { display: none; }

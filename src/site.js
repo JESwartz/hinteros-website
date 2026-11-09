@@ -72,7 +72,7 @@ if (track) {
     const pitch = slides[1].offsetLeft - slides[0].offsetLeft;
     current = Math.round(track.scrollLeft / pitch);
     tabs.forEach((tab, k) => tab.setAttribute("aria-current", k === current));
-    bar.style.setProperty("--progress", (track.scrollLeft / pitch + 1) / slides.length);
+    bar.style.setProperty("--screen", track.scrollLeft / pitch);
   };
   // Show only the current name when the names do not all fit on one line.
   let width = 0;
@@ -92,6 +92,7 @@ if (track) {
   }
   track.addEventListener("scroll", mark, { passive: true });
   step.hidden = false;
+  bar.style.setProperty("--screens", slides.length);
   mark();
   fit();
 }
