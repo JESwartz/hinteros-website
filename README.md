@@ -78,6 +78,16 @@ One-time setup in the Cloudflare dashboard:
 `wrangler pages deploy` with any other `--branch` makes a preview deployment on
 `<branch>.hinteros.pages.dev`; deploy `.#preview` there, never to `main`.
 
+To upload by hand in the dashboard instead (the project → Create deployment), copy the build out
+of the Nix store and drop in the folder's contents. `preview/` and `site/` are git-ignored:
+
+```
+rm -rf preview && nix build .#preview && cp -rL result preview && chmod -R u+w preview
+rm -rf site && nix build .#site && cp -rL result site && chmod -R u+w site
+```
+
+Upload `preview/` only as a Preview deployment, `site/` as Production.
+
 ## License
 
 GPL-3.0-only, like the rest of HinterOS. Atkinson Hyperlegible is under the SIL Open Font
