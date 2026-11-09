@@ -20,7 +20,21 @@ if (start) {
   const player = document.getElementById("player");
   const home = document.getElementById("demo-home");
   const fullscreen = document.getElementById("demo-fullscreen");
+  const padToggle = document.getElementById("demo-pad");
+  const pad = document.getElementById("touch-pad");
   let frame;
+
+  // The demo is same-origin, so keys are sent straight to the launcher's view. The event must be
+  // made by the demo's own window: the launcher ignores a KeyboardEvent from this page.
+  const view = () => frame.contentDocument.querySelector("flutter-view");
+  const send = (type, key, code, repeat = false) => {
+    view()?.dispatchEvent(new frame.contentWindow.KeyboardEvent(type, {
+      key, code, repeat, bubbles: true, cancelable: true, composed: true,
+    }));
+  };
+  // A click on a button of this page takes the focus from the launcher's view, and the keyboard
+  // then does nothing in the demo. Give it back.
+  const focusDemo = () => { frame.focus(); view()?.focus(); };
 
   // The demo is several MB, so it loads only when asked for.
   start.addEventListener("click", () => {
@@ -33,28 +47,58 @@ if (start) {
     frame.focus();
     home.disabled = false;
     fullscreen.disabled = !player.requestFullscreen;
+    padToggle.disabled = false;
+    // Shown at the start on touch screens, where there is no other way to operate the demo.
+    showPad(matchMedia("(pointer: coarse)").matches);
   });
 
-  // The launcher takes the Home key as the controller's Guide button. The demo is same-origin,
-  // so the key is sent to whatever has focus inside it.
+  // The launcher takes the Home key as the controller's Guide button.
   home.addEventListener("click", () => {
-    const doc = frame.contentDocument;
-    const target = doc.activeElement || doc.body;
-    for (const type of ["keydown", "keyup"]) {
-      target.dispatchEvent(new KeyboardEvent(type, {
-        key: "Home", code: "Home", bubbles: true, cancelable: true, composed: true,
-      }));
-    }
-    frame.focus();
+    send("keydown", "Home", "Home");
+    send("keyup", "Home", "Home");
+    focusDemo();
   });
+
+  const showPad = (on) => {
+    pad.hidden = !on;
+    padToggle.textContent = on ? "Hide controller" : "Show controller";
+    padToggle.setAttribute("aria-pressed", on);
+  };
+  padToggle.addEventListener("click", () => { showPad(pad.hidden); focusDemo(); });
+
+  // The on-screen controller sends the keyboard keys of the buttons. A held button repeats, as
+  // a held key does. Each button follows its own pointer, so two fingers can hold two buttons.
+  for (const button of pad.querySelectorAll("button")) {
+    const key = button.dataset.key;
+    const code = button.dataset.code || key;
+    let timer;
+    const release = () => {
+      if (!button.classList.contains("on")) return;
+      clearTimeout(timer);
+      button.classList.remove("on");
+      send("keyup", key, code);
+    };
+    button.addEventListener("pointerdown", (event) => {
+      event.preventDefault(); // keeps the focus in the demo
+      button.setPointerCapture(event.pointerId);
+      button.classList.add("on");
+      send("keydown", key, code);
+      const repeat = () => { send("keydown", key, code, true); timer = setTimeout(repeat, 100); };
+      timer = setTimeout(repeat, 400);
+    });
+    button.addEventListener("pointerup", release);
+    button.addEventListener("pointercancel", release);
+    button.addEventListener("lostpointercapture", release);
+    button.addEventListener("contextmenu", (event) => event.preventDefault());
+  }
 
   fullscreen.addEventListener("click", () => {
     if (document.fullscreenElement) document.exitFullscreen();
-    else player.requestFullscreen().then(() => frame.focus(), () => {});
+    else player.requestFullscreen().then(focusDemo, () => {});
   });
   document.addEventListener("fullscreenchange", () => {
     fullscreen.textContent = document.fullscreenElement ? "Exit full screen" : "Full screen";
-    frame?.focus();
+    if (frame) focusDemo();
   });
 }
 

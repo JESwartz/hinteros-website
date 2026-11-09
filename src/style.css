@@ -628,6 +628,7 @@ kbd {
 .tv-empty p { max-width: 34rem; color: var(--text-dim); }
 .player-bar {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   gap: 0.5rem;
   margin-top: 1rem;
@@ -644,6 +645,56 @@ kbd {
 }
 .player-bar button:hover:not(:disabled) { background: var(--surface-high); }
 .player-bar button:disabled { color: var(--text-dim); opacity: 0.5; cursor: default; }
+/* Demo: a see-through controller over the screen, for a mouse or touch. The buttons scale with
+   the screen, but stay large enough for a finger. */
+.tv { container-type: inline-size; }
+.touch-pad {
+  position: absolute; inset: 0; pointer-events: none;
+  --cell: clamp(2rem, 6.5cqw, 4rem);
+}
+.touch-pad[hidden] { display: none; }
+.touch-pad button, .touch-pad .x {
+  pointer-events: auto; touch-action: none; user-select: none; -webkit-user-select: none;
+  -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent;
+  display: flex; align-items: center; justify-content: center; padding: 0;
+  border: 1.5px solid rgb(255 255 255 / 0.4); background: rgb(255 255 255 / 0.12);
+  color: rgb(255 255 255 / 0.85); font: inherit; font-weight: 700; font-size: calc(var(--cell) * 0.4);
+  cursor: pointer;
+}
+.touch-pad button.on { background: rgb(255 255 255 / 0.4); border-color: #fff; color: #fff; }
+.touch-pad .x { opacity: 0.35; pointer-events: none; }
+.touch-pad .shoulder {
+  position: absolute; top: calc(var(--cell) * 0.3); width: calc(var(--cell) * 2); height: calc(var(--cell) * 0.8);
+  border-radius: calc(var(--cell) * 0.4);
+}
+.touch-pad .lb { left: calc(var(--cell) * 0.3); }
+.touch-pad .rb { right: calc(var(--cell) * 0.3); }
+.touch-pad .dpad, .touch-pad .face {
+  position: absolute; bottom: calc(var(--cell) * 0.3); display: grid;
+  grid-template: repeat(3, var(--cell)) / repeat(3, var(--cell));
+}
+.touch-pad .dpad { left: calc(var(--cell) * 0.3); }
+.touch-pad .face { right: calc(var(--cell) * 0.3); }
+.touch-pad .up, .touch-pad .y { grid-area: 1 / 2; }
+.touch-pad .left, .touch-pad .x { grid-area: 2 / 1; }
+.touch-pad .right, .touch-pad .b { grid-area: 2 / 3; }
+.touch-pad .down, .touch-pad .a { grid-area: 3 / 2; }
+.touch-pad .face > * { border-radius: 50%; }
+/* An arrow in each D-pad button. */
+.touch-pad .dpad button::after {
+  content: ""; border: solid transparent; border-width: 0 calc(var(--cell) * 0.17) calc(var(--cell) * 0.24);
+  border-bottom-color: currentColor;
+}
+.touch-pad .right::after { transform: rotate(90deg); }
+.touch-pad .down::after { transform: rotate(180deg); }
+.touch-pad .left::after { transform: rotate(270deg); }
+.touch-pad .guide {
+  position: absolute; bottom: calc(var(--cell) * 0.3); left: 50%; translate: -50% 0;
+  width: var(--cell); height: var(--cell); border-radius: 50%;
+}
+.touch-pad .guide::after {
+  content: ""; width: 40%; height: 40%; border-radius: 50%; border: 2px solid currentColor;
+}
 .player:fullscreen { display: flex; flex-direction: column; width: 100%; background: #000; }
 /* In full screen the screen stays 16:9, as large as fits, with black bars on the sides that are
    too big. The bezel is a size container, so the screen can be sized from its height too. */

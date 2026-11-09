@@ -23,6 +23,23 @@
             Start demo
             <span class="meta">Download size: approximately 10 MB</span>
           </button>
+          <div class="touch-pad" id="touch-pad" hidden>
+            <button type="button" class="shoulder lb" data-key="PageUp" tabindex="-1">LB</button>
+            <button type="button" class="shoulder rb" data-key="PageDown" tabindex="-1">RB</button>
+            <div class="dpad">
+              <button type="button" class="up" data-key="ArrowUp" tabindex="-1" aria-label="Up"></button>
+              <button type="button" class="left" data-key="ArrowLeft" tabindex="-1" aria-label="Left"></button>
+              <button type="button" class="right" data-key="ArrowRight" tabindex="-1" aria-label="Right"></button>
+              <button type="button" class="down" data-key="ArrowDown" tabindex="-1" aria-label="Down"></button>
+            </div>
+            <button type="button" class="guide" data-key="Home" tabindex="-1" aria-label="Guide"></button>
+            <div class="face">
+              <button type="button" class="y" data-key="y" data-code="KeyY" tabindex="-1">Y</button>
+              <span class="x" aria-hidden="true">X</span>
+              <button type="button" class="b" data-key="Backspace" tabindex="-1">B</button>
+              <button type="button" class="a" data-key="Enter" tabindex="-1">A</button>
+            </div>
+          </div>
         </div>
         <div class="chin"></div>
       </div>
@@ -30,6 +47,7 @@
       <div class="player-bar">
         <button type="button" id="demo-home" disabled>Home</button>
         <button type="button" id="demo-fullscreen" disabled>Full screen</button>
+        <button type="button" id="demo-pad" disabled>Show controller</button>
       </div>
     </div>
 <!-- /demo -->
@@ -41,7 +59,7 @@
 
     <section aria-labelledby="keys-heading">
       <h2 id="keys-heading">Controls</h2>
-      <p>Use a keyboard or a controller. The controller operates after its first button push. Click the screen before you use the keyboard. Touch and mouse input do not operate in the demo.</p>
+      <p>Use a keyboard or a controller. The controller operates after its first button push. Click the screen before you use the keyboard. Touch and mouse input do not operate on the screen. To use them, push Show controller.</p>
       <div class="pad-diagram">
         <svg class="top" viewBox="0 0 900 420" role="img" aria-labelledby="pad-title">
           <title id="pad-title">A controller from above, with the keyboard key for each button it uses</title>
