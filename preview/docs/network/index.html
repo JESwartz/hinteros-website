@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Network: HinterOS documentation</title>
+  <meta name="description" content="Connect the box to Wi-Fi or Ethernet, turn SSH on or off, and control which apps can use your home network.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/"><img src="/favicon.svg" alt="" width="28" height="28">HinterOS</a>
+      <nav aria-label="Main">
+        <a href="/try/">Demo</a>
+        <a href="/docs/" aria-current="true">Docs</a>
+        <a href="/contact/">Contact</a>
+        <a href="/download/">Download</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap docs">
+    <div class="docs-side">
+      <details class="docs-menu">
+        <summary>Documentation contents</summary>
+        <ul>
+<li><a href="/docs/">Overview</a></li>
+<li><a href="/docs/install/">Install</a></li>
+<li><a href="/docs/controls/">Controls</a></li>
+<li><a href="/docs/profiles/">Profiles</a></li>
+<li><a href="/docs/apps/">Apps and the Store</a></li>
+<li><a href="/docs/steam/">Steam</a></li>
+<li><a href="/docs/server/">Media server</a></li>
+<li><a href="/docs/network/" aria-current="page">Network</a></li>
+<li><a href="/docs/settings/">Settings</a></li>
+<li><a href="/docs/accessibility/">Accessibility</a></li>
+<li><a href="/docs/updates/">Updates</a></li>
+<li><a href="/docs/admin/">Administration</a></li>
+<li><a href="/docs/privacy/">Privacy and security</a></li>
+<li><a href="/docs/troubleshooting/">Troubleshooting</a></li>
+<li><a href="/docs/faq/">Frequently asked questions</a></li>
+        </ul>
+      </details>
+      <nav class="docs-nav" aria-label="Documentation">
+        <p class="docs-nav-title">Documentation</p>
+        <ul>
+<li><a href="/docs/">Overview</a></li>
+<li><a href="/docs/install/">Install</a></li>
+<li><a href="/docs/controls/">Controls</a></li>
+<li><a href="/docs/profiles/">Profiles</a></li>
+<li><a href="/docs/apps/">Apps and the Store</a></li>
+<li><a href="/docs/steam/">Steam</a></li>
+<li><a href="/docs/server/">Media server</a></li>
+<li><a href="/docs/network/" aria-current="page">Network</a></li>
+<li><a href="/docs/settings/">Settings</a></li>
+<li><a href="/docs/accessibility/">Accessibility</a></li>
+<li><a href="/docs/updates/">Updates</a></li>
+<li><a href="/docs/admin/">Administration</a></li>
+<li><a href="/docs/privacy/">Privacy and security</a></li>
+<li><a href="/docs/troubleshooting/">Troubleshooting</a></li>
+<li><a href="/docs/faq/">Frequently asked questions</a></li>
+        </ul>
+      </nav>
+    </div>
+    <main class="docs-main">
+      <h1>Network</h1>
+<p class="lede">The box needs the internet for updates, the Store and some apps, such as Steam.</p>
+<h2 id="ethernet">Ethernet</h2>
+<p>Connect a network cable to the box. The box connects automatically. You do not have to set anything.</p>
+<h2 id="wi-fi-in-first-time-setup">Wi-Fi in first-time setup</h2>
+<p>If you connected to Wi-Fi in the installer, the box keeps that network. It is online when it starts for the first time.</p>
+<p>The Internet step of first-time setup shows the networks nearby. To join a network, select it. If the network has a password, type it and select Join.</p>
+<p>You can select Continue without a network. The step then shows "Not online. Updates and the Store need the internet." You can connect later in Settings.</p>
+<h2 id="wi-fi-in-settings">Wi-Fi in Settings</h2>
+<p>Go to Settings → Network. The top line shows the connection, for example "Connected to Home (192.168.1.42)." The address in brackets is the address of the box on your network.</p>
+<ul>
+<li>To turn Wi-Fi on or off, select Wi-Fi.</li>
+<li>To join a network, select it in Networks nearby. If the network needs a password, type it and select Connect.</li>
+<li>To look for networks again, select Scan again.</li>
+<li>To disconnect or forget a network, select the network that is connected. Then select Disconnect or Forget this network.</li>
+</ul>
+<p>Each network in the list shows its state: Connected, Saved, Open, Needs a password or Not supported. The box joins a saved network without a password.</p>
+<p>If the saved password of a network changes, the box asks for the new password.</p>
+<h3 id="networks-that-do-not-work">Networks that do not work</h3>
+<ul>
+<li>WEP networks and networks with a business login show "Not supported". The box cannot join them.</li>
+<li>The list does not show hidden networks. You cannot join a hidden network from the screen.</li>
+</ul>
+<h2 id="when-the-box-is-offline">When the box is offline</h2>
+<p>The top line in Settings → Network tells you what is wrong:</p>
+<ul>
+<li>"Not connected." The box has no network. Connect a cable or join a Wi-Fi network.</li>
+<li>"No internet." The box has a network, but the network cannot reach the internet. Examine your router.</li>
+<li>"The network needs a sign-in." The network wants you to sign in on a web page, as in a hotel.</li>
+</ul>
+<p>When the box cannot reach the update server, Settings → Updates shows "Can't reach the update server right now. Try again later."</p>
+<p>For more help, refer to <a href="/docs/troubleshooting/">Troubleshooting</a>.</p>
+<h2 id="local-network-permission">Local network permission</h2>
+<p>Many apps on the box run in a sandbox. An app in a sandbox can use the internet. To use your home network, the app needs the Local network permission.</p>
+<p>Without this permission, the app cannot connect to:</p>
+<ul>
+<li>Other devices on your home network, such as a computer, a printer or a media server.</li>
+<li>The servers on the box itself, such as Jellyfin.</li>
+</ul>
+<p>For example, the Jellyfin app needs this permission to play from a Jellyfin server at home. You can turn the permission on or off on the page of the app in the Store. The change applies the next time that the app starts. For more about permissions, refer to <a href="/docs/apps/">Apps and the Store</a>.</p>
+<p>Apps with full access, such as Steam, can always use your home network.</p>
+<h2 id="ssh">SSH</h2>
+<p>SSH lets you log in to the box from a computer. You log in as the admin account, with its password. For more about the admin account, refer to <a href="/docs/admin/">Administration</a>.</p>
+<h3 id="turn-ssh-on-or-off">Turn SSH on or off</h3>
+<p>You can turn on SSH in the installer, with Enable SSH. To change it later:</p>
+<ol>
+<li>Go to Settings → System → Remote access.</li>
+<li>Select SSH.</li>
+<li>Type the password of the admin account.</li>
+</ol>
+<p>After three wrong passwords, nothing changes.</p>
+<h3 id="connect">Connect</h3>
+<p>On a computer on the same network, type:</p>
+<pre><code>ssh &lt;admin&gt;@&lt;address&gt;
+</code></pre>
+<p>Replace <code>&lt;admin&gt;</code> with the user name of the admin account. Replace <code>&lt;address&gt;</code> with the address that Settings → Network shows. When SSH is on, Remote access also shows this address.</p>
+<p>The first time that you connect, <code>ssh</code> shows a key fingerprint. Compare it with the SSH host key in Settings → System → About. If they are not the same, do not continue.</p>
+<h3 id="who-can-connect">Who can connect</h3>
+<ul>
+<li>Only computers on your home network can connect. Computers on the internet cannot.</li>
+<li>When Tailscale is on, your devices on your Tailscale network can also connect. Refer to <a href="/docs/server/">Media server</a>.</li>
+<li>Only the admin account can log in. Profiles and root cannot log in over SSH.</li>
+<li>Each connection gets three tries for the password.</li>
+</ul>
+      <nav class="pager" aria-label="Previous and next page">
+      <a class="prev" href="/docs/server/"><span>Previous</span>Media server</a>
+      <a class="next" href="/docs/settings/"><span>Next</span>Settings</a>
+      </nav>
+    </main>
+  </div>
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-cols">
+        <nav aria-labelledby="f-project">
+          <h2 id="f-project">HinterOS</h2>
+          <ul>
+            <li><a href="/download/">Download</a></li>
+            <li><a href="/try/">Demo</a></li>
+            <li><a href="/contact/">Contact</a></li>
+          </ul>
+        </nav>
+        <nav aria-labelledby="f-help">
+          <h2 id="f-help">Help</h2>
+          <ul>
+            <li><a href="/docs/">Documentation</a></li>
+            <li><a href="/docs/install/">Install guide</a></li>
+            <li><a href="/docs/troubleshooting/">Troubleshooting</a></li>
+            <li><a href="https://git.hinteros.org/hinteros/issues">Report a bug</a></li>
+          </ul>
+        </nav>
+        <nav aria-labelledby="f-source">
+          <h2 id="f-source">Source</h2>
+          <ul>
+            <li><a href="https://git.hinteros.org">git.hinteros.org</a></li>
+            <li><a href="https://github.com/JESwartz">GitHub mirror</a></li>
+            <li><a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0 license</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

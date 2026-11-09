@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Privacy and security: HinterOS documentation</title>
+  <meta name="description" content="What the box sends on the network, and how HinterOS keeps profiles and apps apart.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/"><img src="/favicon.svg" alt="" width="28" height="28">HinterOS</a>
+      <nav aria-label="Main">
+        <a href="/try/">Demo</a>
+        <a href="/docs/" aria-current="true">Docs</a>
+        <a href="/contact/">Contact</a>
+        <a href="/download/">Download</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap docs">
+    <div class="docs-side">
+      <details class="docs-menu">
+        <summary>Documentation contents</summary>
+        <ul>
+<li><a href="/docs/">Overview</a></li>
+<li><a href="/docs/install/">Install</a></li>
+<li><a href="/docs/controls/">Controls</a></li>
+<li><a href="/docs/profiles/">Profiles</a></li>
+<li><a href="/docs/apps/">Apps and the Store</a></li>
+<li><a href="/docs/steam/">Steam</a></li>
+<li><a href="/docs/server/">Media server</a></li>
+<li><a href="/docs/network/">Network</a></li>
+<li><a href="/docs/settings/">Settings</a></li>
+<li><a href="/docs/accessibility/">Accessibility</a></li>
+<li><a href="/docs/updates/">Updates</a></li>
+<li><a href="/docs/admin/">Administration</a></li>
+<li><a href="/docs/privacy/" aria-current="page">Privacy and security</a></li>
+<li><a href="/docs/troubleshooting/">Troubleshooting</a></li>
+<li><a href="/docs/faq/">Frequently asked questions</a></li>
+        </ul>
+      </details>
+      <nav class="docs-nav" aria-label="Documentation">
+        <p class="docs-nav-title">Documentation</p>
+        <ul>
+<li><a href="/docs/">Overview</a></li>
+<li><a href="/docs/install/">Install</a></li>
+<li><a href="/docs/controls/">Controls</a></li>
+<li><a href="/docs/profiles/">Profiles</a></li>
+<li><a href="/docs/apps/">Apps and the Store</a></li>
+<li><a href="/docs/steam/">Steam</a></li>
+<li><a href="/docs/server/">Media server</a></li>
+<li><a href="/docs/network/">Network</a></li>
+<li><a href="/docs/settings/">Settings</a></li>
+<li><a href="/docs/accessibility/">Accessibility</a></li>
+<li><a href="/docs/updates/">Updates</a></li>
+<li><a href="/docs/admin/">Administration</a></li>
+<li><a href="/docs/privacy/" aria-current="page">Privacy and security</a></li>
+<li><a href="/docs/troubleshooting/">Troubleshooting</a></li>
+<li><a href="/docs/faq/">Frequently asked questions</a></li>
+        </ul>
+      </nav>
+    </div>
+    <main class="docs-main">
+      <h1>Privacy and security</h1>
+<p class="lede">HinterOS sends no usage data and no crash reports. This page tells you what the box connects to, and how HinterOS protects your data.</p>
+<h2 id="what-the-box-connects-to">What the box connects to</h2>
+<p>HinterOS itself connects to these servers:</p>
+<ul>
+<li>
+<p>The HinterOS update server, git.hinteros.org. The box looks for updates when the session starts and one time each day.</p>
+</li>
+<li>
+<p>The NixOS package cache, cache.nixos.org. The box downloads updates and apps from it.</p>
+</li>
+<li>
+<p>The websites of app vendors. Some apps, for example Plex, download from their vendor during installation. The box also downloads app icons from the vendor websites and gets them again after 30 days.</p>
+</li>
+<li>
+<p>The NixOS time servers, nixos.pool.ntp.org. The box sets its clock from them.</p>
+</li>
+</ul>
+<p>The box looks for updates but does not install them. Only a person with the admin PIN can install an update. For more information, refer to <a href="/docs/updates/">Updates</a>.</p>
+<p>Apps connect to their own services, for example Steam, Netflix or YouTube. The terms and the privacy rules of the vendor apply.</p>
+<p>The media server services run only after the admin profile turns them on. For more information, refer to <a href="/docs/server/">Media server</a>.</p>
+<h3 id="web-apps">Web apps</h3>
+<p>Many TV apps, for example YouTube and Netflix, run in Firefox. HinterOS sets Firefox for privacy:</p>
+<ul>
+<li>
+<p>Firefox telemetry and Firefox studies are off.</p>
+</li>
+<li>
+<p>Firefox does not offer to save passwords.</p>
+</li>
+<li>
+<p>Firefox installs no add-ons, other than the HinterOS on-screen keyboard.</p>
+</li>
+</ul>
+<p>Some video services need a DRM module. Firefox downloads this module the first time that a service needs it.</p>
+<h2 id="signed-updates">Signed updates</h2>
+<p>The HinterOS developers sign each update. Before the box installs an update, it checks the signature. The box refuses an update without a correct signature.</p>
+<p>The box also refuses a version that is older than a version that it already saw. Thus, a server cannot send an old version with a known security problem.</p>
+<h2 id="profiles">Profiles</h2>
+<p>Each profile is a separate user account on the box. A profile cannot read the files of a different profile.</p>
+<p>Each profile has a PIN. After 3 incorrect PINs, HinterOS makes you wait before the next try. Each wait is longer, up to 5 minutes.</p>
+<p>The admin PIN has no wait. Instead, after 10 incorrect admin PINs, the box refuses all admin PINs until it restarts. This includes the correct PIN.</p>
+<div class="callout" role="note">
+<p>A PIN stops other persons from using a profile by mistake. A person with access to the box can get around it.</p>
+</div>
+<p>For more information, refer to <a href="/docs/profiles/">Profiles</a> and <a href="/docs/admin/">Administration</a>.</p>
+<h2 id="the-app-sandbox">The app sandbox</h2>
+<p>Store apps run in a sandbox. Each app has its own folder and cannot see your other files or the files of other apps. An app cannot control HinterOS or other apps.</p>
+<p>A filter blocks system functions that apps do not need. If the sandbox or the filter cannot start, HinterOS does not start the app.</p>
+<p>An app can use the internet. It needs a permission to use the controller, the microphone, the Downloads folder or the local network.</p>
+<p>Without the Local network permission, an app cannot connect to devices on your home network or to services on this box.</p>
+<p>Steam cannot run in the sandbox. The Store shows it with the permission Full profile access. For more information, refer to <a href="/docs/apps/">Apps and the Store</a>.</p>
+<h2 id="display-isolation">Display isolation</h2>
+<p>Each app runs on its own display. An app cannot see the screen of a different app. It also cannot type into a different app, into HinterOS or into the on-screen keyboard.</p>
+<p>Steam and Steam games share one display. They do not get a display of their own.</p>
+<h2 id="ssh">SSH</h2>
+<p>SSH is off by default. To turn it on, select Enable SSH in the installer or go to Settings → System → Remote access. You must type the admin password.</p>
+<p>When SSH is on, only devices on your local network can connect. The root account cannot log in through SSH. For more information, refer to <a href="/docs/network/">Network</a>.</p>
+      <nav class="pager" aria-label="Previous and next page">
+      <a class="prev" href="/docs/admin/"><span>Previous</span>Administration</a>
+      <a class="next" href="/docs/troubleshooting/"><span>Next</span>Troubleshooting</a>
+      </nav>
+    </main>
+  </div>
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-cols">
+        <nav aria-labelledby="f-project">
+          <h2 id="f-project">HinterOS</h2>
+          <ul>
+            <li><a href="/download/">Download</a></li>
+            <li><a href="/try/">Demo</a></li>
+            <li><a href="/contact/">Contact</a></li>
+          </ul>
+        </nav>
+        <nav aria-labelledby="f-help">
+          <h2 id="f-help">Help</h2>
+          <ul>
+            <li><a href="/docs/">Documentation</a></li>
+            <li><a href="/docs/install/">Install guide</a></li>
+            <li><a href="/docs/troubleshooting/">Troubleshooting</a></li>
+            <li><a href="https://git.hinteros.org/hinteros/issues">Report a bug</a></li>
+          </ul>
+        </nav>
+        <nav aria-labelledby="f-source">
+          <h2 id="f-source">Source</h2>
+          <ul>
+            <li><a href="https://git.hinteros.org">git.hinteros.org</a></li>
+            <li><a href="https://github.com/JESwartz">GitHub mirror</a></li>
+            <li><a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0 license</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

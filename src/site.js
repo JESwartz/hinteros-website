@@ -1,5 +1,6 @@
 // Copy buttons on the download page, the click-to-start launcher demo on the Demo page, and
-// on the home page the Tour carousel, the Technical stack building and the Features band's lines.
+// on the home page the Features and Tour carousels, the Technical stack building and the
+// Features band's lines.
 
 for (const button of document.querySelectorAll("button[data-copy]")) {
   button.addEventListener("click", async () => {
@@ -78,6 +79,22 @@ if (track) {
   track.addEventListener("scroll", mark, { passive: true });
   step.hidden = false;
   mark();
+}
+
+// The Features carousel on narrow screens: the buttons scroll one card sideways. On wider
+// screens the cards are a grid and the buttons are hidden by the style sheet.
+const cards = document.querySelector(".features .grid");
+if (cards) {
+  const step = document.querySelector(".feature-step");
+  const items = [...cards.children];
+  for (const button of step.querySelectorAll("button")) {
+    button.addEventListener("click", () => {
+      const pitch = items[1].offsetLeft - items[0].offsetLeft;
+      const k = Math.round(cards.scrollLeft / pitch) + Number(button.dataset.step);
+      cards.scrollTo({ left: items[(k + items.length) % items.length].offsetLeft - items[0].offsetLeft });
+    });
+  }
+  step.hidden = false;
 }
 
 // The Technical stack building: the floors (SVG groups) are tabs. Hover, focus or a click picks a floor, and

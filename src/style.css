@@ -195,13 +195,13 @@ kbd {
 }
 .tour-tabs a:hover { color: var(--text); }
 .tour-tabs a[aria-current="true"] { color: var(--text); border-bottom-color: var(--accent); }
-.tour-step { display: flex; gap: 0.5rem; margin-left: auto; padding: 0.4rem 0; }
-.tour-step[hidden] { display: none; }
-.tour-step button {
+.tour-step, .feature-step { display: flex; gap: 0.5rem; margin-left: auto; padding: 0.4rem 0; }
+.tour-step[hidden], .feature-step[hidden] { display: none; }
+.tour-step button, .feature-step button {
   width: 2.5rem; height: 2.5rem; font: inherit; font-size: 1.6rem; line-height: 1;
   color: var(--text); background: var(--surface); border: 1px solid var(--line); cursor: pointer;
 }
-.tour-step button:hover { background: var(--surface-high); }
+.tour-step button:hover, .feature-step button:hover { background: var(--surface-high); }
 .tour-track {
   display: grid; grid-auto-flow: column; grid-auto-columns: 100%; gap: 2rem;
   position: relative; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
@@ -221,20 +221,31 @@ kbd {
 
 .features { background: var(--band) no-repeat; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 4rem 0; }
 .section-heading { font-size: 2.07rem; margin-bottom: 1.5rem; }
+/* Features: three columns, then two, then a carousel that shows one card and the edge of the
+   next. */
+.features-head { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+.features-head .section-heading { margin: 0; }
 .grid {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
+  display: grid; grid-auto-flow: column; grid-auto-columns: 85%; gap: 1rem;
+  overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
+  overscroll-behavior-x: contain; scrollbar-width: none;
+}
+.grid::-webkit-scrollbar { display: none; }
+.grid article { scroll-snap-align: start; }
+@media (min-width: 40rem) {
+  .grid { grid-auto-flow: row; grid-template-columns: repeat(2, 1fr); overflow-x: visible; }
+  .feature-step { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .grid { scroll-behavior: auto; }
 }
 .grid article {
   background: var(--surface);
   border: 1px solid var(--line);
   padding: 1.5rem 1.6rem 1.7rem;
 }
-/* Five features: three above two, so no row ends in a hole. */
 @media (min-width: 60rem) {
-  .features .grid { grid-template-columns: repeat(6, 1fr); }
-  .features .grid article { grid-column: span 2; }
+  .grid { grid-template-columns: repeat(3, 1fr); }
 }
 .grid h3 { font-size: 1.2rem; margin: 0 0 0.5em; }
 .grid p { margin: 0; color: var(--text-dim); }

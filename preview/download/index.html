@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Download HinterOS</title>
+  <meta name="description" content="Download the HinterOS 1.0.0 installer ISO. Verify its SHA-256 checksum and signature.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+  <script src="/site.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/"><img src="/favicon.svg" alt="" width="28" height="28">HinterOS</a>
+      <nav aria-label="Main">
+        <a href="/try/">Demo</a>
+        <a href="/docs/">Docs</a>
+        <a href="/contact/">Contact</a>
+        <a href="/download/" aria-current="page">Download</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap page">
+    <h1>Download HinterOS</h1>
+
+    <section class="download-card" aria-labelledby="iso-heading">
+      <div>
+        <h2 id="iso-heading">HinterOS 1.0.0 <span class="tag">stable</span></h2>
+        <p class="meta">64-bit (x86_64), 3.8 GiB</p>
+      </div>
+      <a class="button primary" href="https://git.hinteros.org/hinteros/releases/download/v1.0.0/hinteros-1.0.0-x86_64.iso" download>Download ISO</a>
+      <dl class="facts">
+        <dt>File</dt>
+        <dd><code>hinteros-1.0.0-x86_64.iso</code> (4,080,218,931 bytes)</dd>
+        <dt>SHA-256</dt>
+        <dd class="hash-row">
+          <code class="hash" id="sha256">0000000000000000000000000000000000000000000000000000000000000000</code>
+          <button type="button" class="copy" data-copy="sha256">Copy</button>
+        </dd>
+        <dt>Checksums</dt>
+        <dd><a href="https://git.hinteros.org/hinteros/releases/download/v1.0.0/SHA256SUMS">SHA256SUMS</a>, signature <a href="https://git.hinteros.org/hinteros/releases/download/v1.0.0/SHA256SUMS.sig">SHA256SUMS.sig</a></dd>
+        <dt>Source</dt>
+        <dd><a href="https://git.hinteros.org/hinteros/src/branch/stable"><code>000000000000</code></a>, signed stable release commit</dd>
+      </dl>
+    </section>
+
+    <section aria-labelledby="req-heading">
+      <h2 id="req-heading">Requirements</h2>
+      <dl class="specs">
+        <div><dt>Processor</dt><dd>64-bit (x86_64)</dd></div>
+        <div><dt>Memory</dt><dd>4 GB RAM minimum</dd></div>
+        <div><dt>Firmware</dt><dd>UEFI</dd></div>
+        <div><dt>Storage</dt><dd>18 GB minimum</dd></div>
+      </dl>
+      <p>For installation, refer to the <a href="/docs/install/">install guide</a>.</p>
+    </section>
+
+    <section aria-labelledby="verify-heading">
+      <h2 id="verify-heading">Check download</h2>
+      <p>Compare the SHA-256 checksum of the ISO with the value above. The HinterOS release key signs <code>SHA256SUMS</code>. Verify the signature with <code>ssh-keygen -Y verify</code>.</p>
+      <dl class="tech">
+        <dt>Signer</dt><dd><code>release</code></dd>
+        <dt>Namespace</dt><dd><code>file</code></dd>
+        <dt>Key fingerprint</dt><dd><code>SHA256:NuERttXtUYjtSTqt7kHUqs7TW6rWSHjHOIUlOOADpCE</code></dd>
+        <dt>Allowed signers</dt><dd><a href="https://git.hinteros.org/hinteros/raw/commit/0000000000000000000000000000000000000000/release/allowed_signers"><code>allowed_signers</code></a></dd>
+      </dl>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-cols">
+        <nav aria-labelledby="f-project">
+          <h2 id="f-project">HinterOS</h2>
+          <ul>
+            <li><a href="/download/">Download</a></li>
+            <li><a href="/try/">Demo</a></li>
+            <li><a href="/contact/">Contact</a></li>
+          </ul>
+        </nav>
+        <nav aria-labelledby="f-help">
+          <h2 id="f-help">Help</h2>
+          <ul>
+            <li><a href="/docs/">Documentation</a></li>
+            <li><a href="/docs/install/">Install guide</a></li>
+            <li><a href="/docs/troubleshooting/">Troubleshooting</a></li>
+            <li><a href="https://git.hinteros.org/hinteros/issues">Report a bug</a></li>
+          </ul>
+        </nav>
+        <nav aria-labelledby="f-source">
+          <h2 id="f-source">Source</h2>
+          <ul>
+            <li><a href="https://git.hinteros.org">git.hinteros.org</a></li>
+            <li><a href="https://github.com/JESwartz">GitHub mirror</a></li>
+            <li><a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0 license</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

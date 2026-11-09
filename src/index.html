@@ -36,8 +36,14 @@
 
     <section class="features" aria-labelledby="features-heading">
       <div class="wrap">
-        <h2 id="features-heading" class="section-heading">Features</h2>
-        <div class="grid">
+        <div class="features-head">
+          <h2 id="features-heading" class="section-heading">Features</h2>
+          <span class="feature-step" hidden>
+            <button type="button" data-step="-1" aria-label="Previous feature">&lsaquo;</button>
+            <button type="button" data-step="1" aria-label="Next feature">&rsaquo;</button>
+          </span>
+        </div>
+        <div class="grid" role="region" tabindex="0" aria-label="Features">
           <article>
             <h3>Controller only</h3>
             <p>Use a controller for all of the system: the installer, Home, Store and Settings. The Guide button always opens Home.</p>

@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Settings: HinterOS documentation</title>
+  <meta name="description" content="The Settings groups of HinterOS: storage, clean-up, display, sound, screen saver, controller and system settings.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/"><img src="/favicon.svg" alt="" width="28" height="28">HinterOS</a>
+      <nav aria-label="Main">
+        <a href="/try/">Demo</a>
+        <a href="/docs/" aria-current="true">Docs</a>
+        <a href="/contact/">Contact</a>
+        <a href="/download/">Download</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap docs">
+    <div class="docs-side">
+      <details class="docs-menu">
+        <summary>Documentation contents</summary>
+        <ul>
+<li><a href="/docs/">Overview</a></li>
+<li><a href="/docs/install/">Install</a></li>
+<li><a href="/docs/controls/">Controls</a></li>
+<li><a href="/docs/profiles/">Profiles</a></li>
+<li><a href="/docs/apps/">Apps and the Store</a></li>
+<li><a href="/docs/steam/">Steam</a></li>
+<li><a href="/docs/server/">Media server</a></li>
+<li><a href="/docs/network/">Network</a></li>
+<li><a href="/docs/settings/" aria-current="page">Settings</a></li>
+<li><a href="/docs/accessibility/">Accessibility</a></li>
+<li><a href="/docs/updates/">Updates</a></li>
+<li><a href="/docs/admin/">Administration</a></li>
+<li><a href="/docs/privacy/">Privacy and security</a></li>
+<li><a href="/docs/troubleshooting/">Troubleshooting</a></li>
+<li><a href="/docs/faq/">Frequently asked questions</a></li>
+        </ul>
+      </details>
+      <nav class="docs-nav" aria-label="Documentation">
+        <p class="docs-nav-title">Documentation</p>
+        <ul>
+<li><a href="/docs/">Overview</a></li>
+<li><a href="/docs/install/">Install</a></li>
+<li><a href="/docs/controls/">Controls</a></li>
+<li><a href="/docs/profiles/">Profiles</a></li>
+<li><a href="/docs/apps/">Apps and the Store</a></li>
+<li><a href="/docs/steam/">Steam</a></li>
+<li><a href="/docs/server/">Media server</a></li>
+<li><a href="/docs/network/">Network</a></li>
+<li><a href="/docs/settings/" aria-current="page">Settings</a></li>
+<li><a href="/docs/accessibility/">Accessibility</a></li>
+<li><a href="/docs/updates/">Updates</a></li>
+<li><a href="/docs/admin/">Administration</a></li>
+<li><a href="/docs/privacy/">Privacy and security</a></li>
+<li><a href="/docs/troubleshooting/">Troubleshooting</a></li>
+<li><a href="/docs/faq/">Frequently asked questions</a></li>
+        </ul>
+      </nav>
+    </div>
+    <main class="docs-main">
+      <h1>Settings</h1>
+<p class="lede">Settings is the last tab of the home screen. The groups are on the left. The settings of the highlighted group are on the right.</p>
+<p>To go into a group, push <span class="pad-btn">A</span> or push right. To go back to the list of groups, push <span class="pad-btn">B</span> or push left. A group with more than one setting shows them one below the other.</p>
+<p>Settings has eight groups, in this order: Profiles, Updates, Storage, Network, Display and sound, Accessibility, Controller and System.</p>
+<p>Some settings change the whole box. If the admin profile has a PIN, these settings ask for it.</p>
+<h2 id="profiles">Profiles</h2>
+<p>Add, change and remove profiles, set PINs and control the Guest profile. Refer to <a href="/docs/profiles/">Profiles</a>.</p>
+<h2 id="updates">Updates</h2>
+<p>Check for updates, change the update channel and roll back to an earlier version. Refer to <a href="/docs/updates/">Updates</a>.</p>
+<h2 id="storage">Storage</h2>
+<p>Storage shows the disk use as a ring. The parts are System, Apps, each profile, Guest, Media, Other and Free space. A profile includes its Steam games. The values come from the last scan.</p>
+<ul>
+<li>
+<p>To select a part of the ring, push left or right.</p>
+</li>
+<li>
+<p>To open a part, push <span class="pad-btn">A</span>. You can open your own profile. A different profile or Guest needs the admin PIN.</p>
+</li>
+<li>
+<p>To go one level back out, push <span class="pad-btn">B</span>.</p>
+</li>
+</ul>
+<p>The other items:</p>
+<ul>
+<li>
+<p>Scan now: Measures the disk again. The row shows the time of the last scan.</p>
+</li>
+<li>
+<p>Clean up the system: Removes old versions of HinterOS.</p>
+</li>
+<li>
+<p>Clean up profiles: Removes old versions of the apps of each profile.</p>
+</li>
+<li>
+<p>Automatic clean-up: Cleans up on a schedule.</p>
+</li>
+</ul>
+<h3 id="clean-up-now">Clean up now</h3>
+<ol>
+<li>
+<p>Select Clean up the system or Clean up profiles.</p>
+</li>
+<li>
+<p>Push left or right to set Versions to keep, from 1 to 10. The dialog shows the space that the clean-up makes free.</p>
+</li>
+<li>
+<p>Select Clean up and type the admin PIN.</p>
+</li>
+</ol>
+<p>When the clean-up is done, a new scan starts.</p>
+<div class="callout" role="note">
+<p>With 1 version to keep, no older version stays. Then you cannot roll back the system, or profiles cannot roll back their apps.</p>
+</div>
+<h3 id="automatic-clean-up">Automatic clean-up</h3>
+<table class="controls">
+<thead>
+<tr>
+<th>Setting</th>
+<th>Values</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Clean up automatically</td>
+<td>On or off</td>
+<td>On</td>
+</tr>
+<tr>
+<td>How often</td>
+<td>Every day, Every week or Every month</td>
+<td>Every week</td>
+</tr>
+<tr>
+<td>System versions to keep</td>
+<td>1 to 10</td>
+<td>5</td>
+</tr>
+<tr>
+<td>App versions to keep</td>
+<td>1 to 10</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<p>To save a change, select Save and type the admin PIN.</p>
+<h2 id="network">Network</h2>
+<p>Network has two settings: Network and Bluetooth. Refer to <a href="/docs/network/">Network</a> for Wi-Fi. To pair a controller, refer to <a href="/docs/controls/">Controls</a>.</p>
+<h2 id="display-and-sound">Display and sound</h2>
+<h3 id="display">Display</h3>
+<p>Check the picture edges opens the Safe area screen. The red line must show on all four sides. If the line is cut off, set the TV picture size to "Just scan", "Screen fit" or "1:1".</p>
+<p>Resolution and refresh rate shows the modes of the display. When you select a different mode, the screen asks: Keep, or Go back. If you do not answer in 15 seconds, the old mode comes back.</p>
+<p>Some displays, for example the internal screen of a laptop, do not let HinterOS change the resolution.</p>
+<h3 id="audio">Audio</h3>
+<ul>
+<li>
+<p>Volume: Push left or right to change the volume in steps of 5%. Push <span class="pad-btn">A</span> to mute or unmute.</p>
+</li>
+<li>
+<p>Play sound through: Select the device that plays the sound.</p>
+</li>
+</ul>
+<p>By default, sound plays on the TV through HDMI or DisplayPort, when the display has sound. A device that you select stays selected.</p>
+<h3 id="screen-saver">Screen saver</h3>
+<p>The screen saver shows only over the home screen. It does not start over an app or a game, for example a film or a paused game. The first button push only closes the screen saver.</p>
+<table class="controls">
+<thead>
+<tr>
+<th>Setting</th>
+<th>Values</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Start after</td>
+<td>Off, 1 minute, 5 minutes, 10 minutes, 15 minutes or 30 minutes</td>
+<td>10 minutes</td>
+</tr>
+<tr>
+<td>Style</td>
+<td>Clock, Drifting logo or Black screen</td>
+<td>Clock</td>
+</tr>
+</tbody>
+</table>
+<p>Show now starts the screen saver at once.</p>
+<h2 id="accessibility">Accessibility</h2>
+<p>Text size, High contrast, Focus marker, Reduce motion and Show typed passwords. Refer to <a href="/docs/accessibility/">Accessibility</a>.</p>
+<h2 id="controller">Controller</h2>
+<p>The Controller settings are for your profile. Changes apply at once. Each setting has Reset to defaults.</p>
+<h3 id="buttons">Buttons</h3>
+<p>Buttons shows one row for each action: Accept, Back, Context, Secondary, Menu, View, Page left, Page right, Left trigger and Right trigger. By default, Accept is <span class="pad-btn">A</span>, Back is <span class="pad-btn">B</span>, Context is <span class="pad-btn">Y</span> and Secondary is <span class="pad-btn">X</span>.</p>
+<p>To change a button:</p>
+<ol>
+<li>
+<p>Select the action.</p>
+</li>
+<li>
+<p>When the screen shows Press a button, push the new button.</p>
+</li>
+</ol>
+<p>The action that had that button before gets the old button. If you push <span class="pad-btn bar">Guide</span> or wait 10 seconds, nothing changes.</p>
+<p>You cannot change <span class="pad-btn bar">Guide</span>, the D-pad or the left stick. The new buttons apply on the home screen, in keyboard apps and on the on-screen keyboard. To open the on-screen keyboard, hold <span class="pad-btn bar">Guide</span> and push the button of Context. Steam and Steam games are not affected.</p>
+<h3 id="pointer">Pointer</h3>
+<p>These settings are for the pointer in keyboard apps:</p>
+<ul>
+<li>
+<p>Speed: Push left or right to change the speed, from 25% to 400%. The default is 100%.</p>
+</li>
+<li>
+<p>Swap sticks: The left stick moves the pointer. The right stick moves like the D-pad.</p>
+</li>
+<li>
+<p>Left click: The default is <span class="pad-btn bar">RT</span>. Select it and push a different button to change it.</p>
+</li>
+<li>
+<p>Right click: The default is <span class="pad-btn bar">LT</span>. If you set the same button as the other click, the two clicks change places.</p>
+</li>
+</ul>
+<h3 id="keyboard-apps">Keyboard apps</h3>
+<p>Keyboard apps sets the key that each button sends in all keyboard apps. Select a row, then select a key or None. By default, the D-pad sends the arrow keys, Accept sends <kbd>Enter</kbd> and Back sends <kbd>Esc</kbd>.</p>
+<h3 id="app-keys">App keys</h3>
+<p>App keys lists each keyboard app. Select an app to set keys for only that app. Changed shows next to an app that has its own keys.</p>
+<h2 id="system">System</h2>
+<h3 id="time-zone">Time zone</h3>
+<p>Select the time zone of the box. This needs the admin PIN.</p>
+<h3 id="power">Power</h3>
+<p>Sleep, Restart and Shut down. Restart and Shut down ask first, because all running apps close.</p>
+<h3 id="apps-open-at-once">Apps open at once</h3>
+<p>Set how many apps can run at the same time, from 1 app to 8 apps. The default is 4 apps. Steam and Steam games are not included in this number. This setting is for your profile.</p>
+<p>A change applies after a session restart. The screen asks Restart the session now? Select Restart, or select Later. All running apps close.</p>
+<p>When all places are in use, HinterOS asks you to close an app before it opens the next one.</p>
+<h3 id="remote-access">Remote access</h3>
+<p>SSH turns on remote login. To change it, type the admin password. When SSH is on, the screen shows the IP address of the box. Log in at that address as the admin account. Refer to <a href="/docs/admin/">Administration</a>.</p>
+<h3 id="about">About</h3>
+<p>About shows the Version, Channel, Software base, Revision, Generation, Host name, IP address and the SSH host key.</p>
+      <nav class="pager" aria-label="Previous and next page">
+      <a class="prev" href="/docs/network/"><span>Previous</span>Network</a>
+      <a class="next" href="/docs/accessibility/"><span>Next</span>Accessibility</a>
+      </nav>
+    </main>
+  </div>
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-cols">
+        <nav aria-labelledby="f-project">
+          <h2 id="f-project">HinterOS</h2>
+          <ul>
+            <li><a href="/download/">Download</a></li>
+            <li><a href="/try/">Demo</a></li>
+            <li><a href="/contact/">Contact</a></li>
+          </ul>
+        </nav>
+        <nav aria-labelledby="f-help">
+          <h2 id="f-help">Help</h2>
+          <ul>
+            <li><a href="/docs/">Documentation</a></li>
+            <li><a href="/docs/install/">Install guide</a></li>
+            <li><a href="/docs/troubleshooting/">Troubleshooting</a></li>
+            <li><a href="https://git.hinteros.org/hinteros/issues">Report a bug</a></li>
+          </ul>
+        </nav>
+        <nav aria-labelledby="f-source">
+          <h2 id="f-source">Source</h2>
+          <ul>
+            <li><a href="https://git.hinteros.org">git.hinteros.org</a></li>
+            <li><a href="https://github.com/JESwartz">GitHub mirror</a></li>
+            <li><a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0 license</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

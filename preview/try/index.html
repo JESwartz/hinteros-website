@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HinterOS demo</title>
+  <meta name="description" content="Try the HinterOS launcher in your browser: the controller-driven home screen, with example apps and games.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+  <script src="/site.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/"><img src="/favicon.svg" alt="" width="28" height="28">HinterOS</a>
+      <nav aria-label="Main">
+        <a href="/try/" aria-current="page">Demo</a>
+        <a href="/docs/">Docs</a>
+        <a href="/contact/">Contact</a>
+        <a href="/download/">Download</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap page try">
+    <h1 class="visually-hidden">HinterOS demo</h1>
+
+
+    <div class="player" id="player">
+      <div class="bezel">
+        <div class="tv" id="tv">
+          <button type="button" class="tv-start" id="demo-start">
+            <span class="play" aria-hidden="true"></span>
+            Start demo
+            <span class="meta">Download size: approximately 10 MB</span>
+          </button>
+        </div>
+        <div class="chin"></div>
+      </div>
+      <div class="stand" aria-hidden="true"></div>
+      <div class="player-bar">
+        <button type="button" id="demo-home" disabled>Home</button>
+        <button type="button" id="demo-fullscreen" disabled>Full screen</button>
+      </div>
+    </div>
+
+
+
+    <section aria-labelledby="keys-heading">
+      <h2 id="keys-heading">Controls</h2>
+      <p>Use a keyboard or a controller. The controller operates after its first button push. Click the screen before you use the keyboard. Touch and mouse input do not operate in the demo.</p>
+      <div class="pad-diagram">
+        <svg class="top" viewBox="0 0 900 420" role="img" aria-labelledby="pad-title">
+          <title id="pad-title">A controller from above, with the keyboard key for each button it uses</title>
+          <g class="pad">
+            <rect class="bumper" x="315" y="116" width="70" height="20" rx="6"/>
+            <rect class="bumper" x="515" y="116" width="70" height="20" rx="6"/>
+            <path class="body" d="M360 140H540C595 140 615 165 626 205L655 330C664 372 634 392 606 372C592 362 574 298 540 298H360C326 298 308 362 294 372C266 392 236 372 245 330L274 205C285 165 305 140 360 140Z"/>
+            <circle class="ctl" cx="330" cy="194" r="22"/>
+            <path class="ctl" d="M381 229h18v14h14v18h-14v14h-18v-14h-14v-18h14z"/>
+            <circle class="ctl idle" cx="510" cy="252" r="20"/>
+            <rect class="ctl" x="408" y="180" width="22" height="12" rx="4"/>
+            <circle class="ctl" cx="450" cy="160" r="14"/>
+            <rect class="ctl idle" x="470" y="180" width="22" height="12" rx="4"/>
+            <circle class="ctl" cx="570" cy="172" r="13"/><text x="570" y="177">Y</text>
+            <circle class="ctl idle" cx="542" cy="194" r="13"/><text class="idle" x="542" y="199">X</text>
+            <circle class="ctl" cx="598" cy="194" r="13"/><text x="598" y="199">B</text>
+            <circle class="ctl" cx="570" cy="216" r="13"/><text x="570" y="221">A</text>
+          </g>
+          <g class="leads">
+            <path d="M200 220L309 200M200 220L367 252"/>
+            <path d="M450 68V146M440 68L419 180"/>
+            <path d="M720 172H583"/>
+            <path d="M720 212L611 197"/>
+            <path d="M720 252L583 219"/>
+          </g>
+          <g class="caps">
+            <rect x="80" y="206" width="120" height="28"/><text x="140" y="225">↑ ↓ ← →</text>
+            <rect x="410" y="40" width="80" height="28"/><text x="450" y="59">Home</text>
+            <rect x="720" y="158" width="40" height="28"/><text x="740" y="177">Y</text>
+            <rect x="720" y="198" width="160" height="28"/><text x="800" y="217">Esc or Backspace</text>
+            <rect x="720" y="238" width="80" height="28"/><text x="760" y="257">Enter</text>
+          </g>
+        </svg>
+        <svg class="front" viewBox="0 0 640 260" role="img" aria-labelledby="pad-front-title">
+          <title id="pad-front-title">The controller from the front, with the keyboard keys for its bumpers</title>
+          <g class="pad">
+            <rect class="ctl idle" x="222" y="48" width="16" height="26"/>
+            <rect class="ctl" x="204" y="38" width="52" height="14" rx="6"/>
+            <rect class="ctl idle" x="372" y="52" width="16" height="22"/>
+            <rect class="ctl idle" x="356" y="42" width="48" height="14" rx="6"/>
+            <path class="body" d="M175 70H465C505 70 522 90 524 125L528 215C530 245 500 252 482 238C468 226 458 200 430 198H210C182 200 172 226 158 238C140 252 110 245 112 215L116 125C118 90 135 70 175 70Z"/>
+            <rect class="bumper" x="150" y="82" width="120" height="22" rx="8"/><text x="210" y="99">LB</text>
+            <rect class="bumper" x="370" y="82" width="120" height="22" rx="8"/><text x="430" y="99">RB</text>
+            <rect class="ctl dim" x="165" y="112" width="90" height="48" rx="12"/><text class="idle" x="210" y="142">LT</text>
+            <rect class="ctl dim" x="385" y="112" width="90" height="48" rx="12"/><text class="idle" x="430" y="142">RT</text>
+          </g>
+          <g class="leads">
+            <path d="M105 93H150"/>
+            <path d="M535 93H490"/>
+          </g>
+          <g class="caps">
+            <rect x="0" y="79" width="105" height="28"/><text x="52" y="98">Page Up</text>
+            <rect x="535" y="79" width="105" height="28"/><text x="587" y="98">Page Down</text>
+          </g>
+        </svg>
+      </div>
+      <dl class="tech">
+        <dt>Move</dt><dd>D-pad or left stick; arrow keys</dd>
+        <dt>Open or select</dt><dd>A; <kbd>Enter</kbd></dd>
+        <dt>Back</dt><dd>B; <kbd>Esc</kbd> or <kbd>Backspace</kbd></dd>
+        <dt>Close an app or game</dt><dd>Y; <kbd>Y</kbd></dd>
+        <dt>Previous or next tab</dt><dd>LB or RB; <kbd>Page Up</kbd> or <kbd>Page Down</kbd></dd>
+        <dt>Go to Home</dt><dd>View or Guide; <kbd>Home</kbd> (on many laptops <kbd>Fn</kbd>+<kbd>←</kbd>)</dd>
+      </dl>
+      <p>Demo profiles: Alex (admin), PIN 2580. Sam, PIN 1593. Robin, PIN 7410. Admin password: <code>blue harbour</code>.</p>
+      <p>Apps and games do not open in the demo. They show a placeholder screen. To go back to Home, push B, <kbd>Esc</kbd> or Home. The app or game then shows under Continue. A page reload resets the demo.</p>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-cols">
+        <nav aria-labelledby="f-project">
+          <h2 id="f-project">HinterOS</h2>
+          <ul>
+            <li><a href="/download/">Download</a></li>
+            <li><a href="/try/">Demo</a></li>
+            <li><a href="/contact/">Contact</a></li>
+          </ul>
+        </nav>
+        <nav aria-labelledby="f-help">
+          <h2 id="f-help">Help</h2>
+          <ul>
+            <li><a href="/docs/">Documentation</a></li>
+            <li><a href="/docs/install/">Install guide</a></li>
+            <li><a href="/docs/troubleshooting/">Troubleshooting</a></li>
+            <li><a href="https://git.hinteros.org/hinteros/issues">Report a bug</a></li>
+          </ul>
+        </nav>
+        <nav aria-labelledby="f-source">
+          <h2 id="f-source">Source</h2>
+          <ul>
+            <li><a href="https://git.hinteros.org">git.hinteros.org</a></li>
+            <li><a href="https://github.com/JESwartz">GitHub mirror</a></li>
+            <li><a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0 license</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
