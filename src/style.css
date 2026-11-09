@@ -756,7 +756,9 @@ kbd {
 /* Footer: link columns, then the project line. */
 .site-footer { background: var(--bg-deep); border-top: 1px solid var(--line); color: var(--text-dim); font-size: 0.95rem; }
 .site-footer .wrap { padding-top: 1.5rem; padding-bottom: 1.25rem; }
-.footer-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); gap: 1rem 2rem; max-width: 48rem; margin: 0 auto; text-align: center; }
+/* Equal columns while their text fits side by side; a column wraps only when it does not. */
+.footer-cols { display: flex; flex-wrap: wrap; gap: 1rem 1.25rem; max-width: 48rem; margin: 0 auto; text-align: center; }
+.footer-cols nav { flex: 1 1 0; min-width: max-content; }
 .footer-cols h2 { font-size: 1rem; color: var(--text); margin: 0 0 0.4rem; }
 .footer-cols ul { list-style: none; margin: 0; padding: 0; }
 .footer-cols li { margin: 0.15rem 0; }
