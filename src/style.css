@@ -550,6 +550,16 @@ kbd {
   margin-right: auto;
 }
 .page.try section { max-width: none; }
+.page.try section p { max-width: none; }
+/* Demo: the inputs for each action, for a controller and a keyboard. */
+.input-table { margin: 1.5rem auto; border-collapse: collapse; text-align: center; }
+.input-table th, .input-table td { padding: 0.6rem 1.25rem; border-bottom: 1px solid var(--line); }
+.input-table thead th { color: var(--text-dim); font-weight: 400; }
+.input-table tbody th { font-weight: 700; }
+.input-table td { color: var(--text-dim); }
+@media (max-width: 560px) {
+  .input-table th, .input-table td { padding: 0.5rem 0.5rem; }
+}
 .bezel {
   padding: 10px 10px 0;
   background: #05070b;
