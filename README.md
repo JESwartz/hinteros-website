@@ -54,7 +54,11 @@ After `nix run .#promote -- stable` in the system repo has pushed the release:
 
 ## Deploy
 
-Cloudflare Pages, direct upload (Pages' own build machines have no Nix):
+Cloudflare Pages, direct upload (Pages' own build machines have no Nix).
+`.forgejo/workflows/deploy.yml` deploys on every push, on the `hinteros-host` runner: `main`
+to hinteros.org (only once `release.json` is committed), any other branch as a preview on
+`<branch>.hinteros.pages.dev`. It needs the repo secrets `CLOUDFLARE_API_TOKEN` (a custom
+token with Account → Cloudflare Pages → Edit) and `CLOUDFLARE_ACCOUNT_ID`. By hand:
 
 ```
 nix build .#site

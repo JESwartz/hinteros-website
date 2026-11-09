@@ -1,0 +1,47 @@
+# Builds the site on the self-hosted runner (host executor, shared Nix store) and uploads it to
+# Cloudflare Pages. A push to main deploys the real site to hinteros.org once release.json is
+# committed; until then it deploys nothing. A push to any other branch deploys the preview to
+# <branch>.hinteros.pages.dev. Checkout uses plain git so the host needs no Node.js.
+#
+# Needs the repo secrets CLOUDFLARE_API_TOKEN (Account, Cloudflare Pages: Edit) and
+# CLOUDFLARE_ACCOUNT_ID.
+name: deploy
+
+on:
+  push:
+    branches: ["**"]
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: hinteros-host
+    steps:
+      - name: checkout
+        run: |
+          git init -q .
+          git fetch -q "${{ github.server_url }}/${{ github.repository }}.git" "${{ github.sha }}"
+          git checkout -q "${{ github.sha }}"
+      - name: build
+        id: build
+        run: |
+          if [ "${{ github.ref_name }}" = main ]; then
+            if [ ! -f release.json ]; then
+              echo "No release.json yet: nothing to deploy."
+              exit 0
+            fi
+            nix build .#site -o site
+          else
+            nix build .#preview -o site
+          fi
+          echo "deploy=yes" >> "$GITHUB_OUTPUT"
+      - name: upload
+        if: steps.build.outputs.deploy == 'yes'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          nix develop -c wrangler pages deploy site --project-name hinteros \
+            --branch "${{ github.ref_name }}" --commit-hash "${{ github.sha }}" --commit-dirty=true
