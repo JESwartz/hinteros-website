@@ -652,8 +652,7 @@ kbd {
   padding: 0; border: 0; box-shadow: none; background: #000; container-type: size;
 }
 .player:fullscreen .tv { width: min(100cqw, 100cqh * 16 / 9); flex: none; }
-.player:fullscreen .chin, .player:fullscreen .stand { display: none; }
-.player:fullscreen .player-bar { margin: 0; padding: 0.5rem; }
+.player:fullscreen .chin, .player:fullscreen .stand, .player:fullscreen .player-bar { display: none; }
 
 /* Demo: a controller from above and from the front, with the keyboard key for each button it
    uses. Side by side when there's room, else stacked; on a phone they scroll sideways rather
