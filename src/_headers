@@ -18,3 +18,8 @@
 # The demo's files keep their names between builds (main.dart.js), so they are revalidated.
 /demo/*
   Cache-Control: no-cache
+
+# The same site on the project's pages.dev address is kept out of search engines: only
+# hinteros.org is indexed.
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex

@@ -10,7 +10,9 @@ links. The launcher screenshots (--shots, WebP files made from the docs repo's i
   python3 build.py --release release.json --docs <hinteros-docs> --shots <dir> --out _site \
     [--demo <dir>] [--preview]
 
---preview asks search engines not to index the site (robots.txt), for builds from example data.
+Each page gets a canonical URL, Open Graph tags and a sitemap entry, from its <title> and
+description. --preview asks search engines not to index the site (robots.txt), for builds from
+example data.
 """
 
 import argparse
@@ -28,6 +30,7 @@ ROOT = Path(__file__).resolve().parent
 SRC = ROOT / "src"
 PAGES = ["index.html", "try.html", "download.html", "contact.html", "404.html"]
 NAV = [("/try/", "Demo"), ("/docs/", "Docs"), ("/contact/", "Contact"), ("/download/", "Download")]
+SITE = "https://hinteros.org"
 FORGE = "https://git.hinteros.org"
 GITHUB = "https://github.com/JESwartz"
 
@@ -242,6 +245,58 @@ def doc_page(docs, slug):
     return layout
 
 
+def seo(text, url, version):
+    """Head tags for search engines and link previews: canonical, Open Graph and, on the home
+    page, JSON-LD. A page without a URL (404) is kept out of the index."""
+    if url is None:
+        return '<meta name="robots" content="noindex">'
+    title = re.search(r"<title>(.*?)</title>", text).group(1)
+    desc = re.search(r'<meta name="description" content="(.*?)">', text).group(1)
+    tags = [
+        f'<link rel="canonical" href="{SITE}{url}">',
+        '<meta property="og:type" content="website">',
+        '<meta property="og:site_name" content="HinterOS">',
+        f'<meta property="og:title" content="{title}">',
+        f'<meta property="og:description" content="{desc}">',
+        f'<meta property="og:url" content="{SITE}{url}">',
+        f'<meta property="og:image" content="{SITE}/social.png">',
+        '<meta property="og:image:width" content="1200">',
+        '<meta property="og:image:height" content="630">',
+        '<meta property="og:image:alt" content="The HinterOS Home screen on a TV.">',
+        '<meta name="twitter:card" content="summary_large_image">',
+        '<meta name="theme-color" content="#0e1118">',
+    ]
+    if url == "/":
+        data = {
+            "@context": "https://schema.org",
+            "@graph": [
+                {"@type": "WebSite", "name": "HinterOS", "url": f"{SITE}/"},
+                {
+                    "@type": "SoftwareApplication",
+                    "name": "HinterOS",
+                    "description": html.unescape(desc),
+                    "url": f"{SITE}/",
+                    "applicationCategory": "OperatingSystem",
+                    "operatingSystem": "Linux",
+                    "softwareVersion": html.unescape(version),
+                    "downloadUrl": f"{SITE}/download/",
+                    "image": f"{SITE}/social.png",
+                    "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+                },
+            ],
+        }
+        ld = json.dumps(data, indent=2).replace("</", "<\\/")
+        tags.append(f'<script type="application/ld+json">\n{ld}\n</script>')
+    return "\n  ".join(tags)
+
+
+def sitemap(urls):
+    entries = "".join(f"  <url><loc>{SITE}{u}</loc></url>\n" for u in urls)
+    return ('<?xml version="1.0" encoding="UTF-8"?>\n'
+            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+            f"{entries}</urlset>\n")
+
+
 def render(page, values, demo, text=None, current=None):
     if text is None:
         text = (SRC / page).read_text()
@@ -259,7 +314,9 @@ def render(page, values, demo, text=None, current=None):
             fail(f"{page}: unknown placeholder {{{{{m.group(1)}}}}}")
         return values[m.group(1)]
 
-    return re.sub(r"\{\{([a-z_0-9]+)\}\}", sub, text)
+    text = re.sub(r"\{\{([a-z_0-9]+)\}\}", sub, text)
+    icon = '  <link rel="icon"'
+    return text.replace(icon, f"  {seo(text, current, values['version'])}\n{icon}", 1)
 
 
 def main():
@@ -279,12 +336,15 @@ def main():
         shutil.rmtree(out)
     out.mkdir(parents=True)
 
+    urls = []
     for page in PAGES:
         target = {"index.html": "index.html", "404.html": "404.html"}.get(
             page, f"{page.removesuffix('.html')}/index.html")
         dest = out / target
         dest.parent.mkdir(parents=True, exist_ok=True)
         dest.write_text(render(page, values, args.demo))
+        if url_of(page):
+            urls.append(url_of(page))
 
     docs = Docs(args.docs)
     for slug, _ in docs.order:
@@ -292,10 +352,11 @@ def main():
         dest.parent.mkdir(parents=True, exist_ok=True)
         dest.write_text(render(f"docs/{slug}", values, args.demo,
                                text=doc_page(docs, slug), current=doc_url(slug)))
+        urls.append(doc_url(slug))
     if (docs.root / "images").is_dir():
         copytree(docs.root / "images", out / "docs" / "images")
 
-    for static in ("style.css", "site.js", "favicon.svg", "_headers", "robots.txt"):
+    for static in ("style.css", "site.js", "favicon.svg", "social.png", "_headers"):
         shutil.copyfile(SRC / static, out / static)
     shutil.copyfile(args.release, out / "release.json")
     copytree(args.shots, out / "img" / "shots")
@@ -305,8 +366,10 @@ def main():
         if not (Path(args.demo) / "index.html").is_file():
             fail(f"--demo {args.demo}: no index.html at its root")
         copytree(args.demo, out / "demo")
-    if args.preview:
-        (out / "robots.txt").write_text("User-agent: *\nDisallow: /\n")
+    (out / "sitemap.xml").write_text(sitemap(urls))
+    (out / "robots.txt").write_text(
+        "User-agent: *\nDisallow: /\n" if args.preview
+        else f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")
 
 
 if __name__ == "__main__":
