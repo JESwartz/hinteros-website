@@ -271,8 +271,12 @@ kbd {
    NixOS at the ground. It is an isometric SVG: each floor is a slab on a square base, with its
    hidden edges dashed. Pick a floor and it lights up, and the panel beside the building shows
    that layer. Without JavaScript, all the layers show in the panel. */
-.stack { display: grid; gap: 2.5rem 4rem; align-items: center; }
-@media (min-width: 52rem) { .stack { grid-template-columns: 28rem minmax(0, 1fr); } }
+/* The building stays beside its text and shrinks with the screen: a third of the width, up to
+   28rem. */
+.stack {
+  display: grid; align-items: center; gap: clamp(1rem, 4vw, 4rem);
+  grid-template-columns: clamp(6.5rem, 34%, 28rem) minmax(0, 1fr);
+}
 /* Each layer has its own colour, used when its floor lights up and on its panel. */
 #floor-nixos, #layer-nixos { --c: #7ebae4; }
 #floor-daemon, #layer-daemon { --c: #ff9d6e; }
@@ -280,9 +284,6 @@ kbd {
 #floor-session, #layer-session { --c: #b99cff; }
 #floor-sandbox, #layer-sandbox { --c: #ffd36b; }
 .building { display: block; width: 100%; max-width: 28rem; margin: 0 auto; overflow: visible; }
-/* Stacked above its panel, the building is at most 45% of the screen high, so a tapped floor and
-   its text show together. */
-@media (max-width: 51.99rem) { .building { max-width: min(28rem, 26svh); } }
 .building .pad { fill: rgb(122 162 255 / 0.1); filter: blur(6px); }
 .building .pad-rim { fill: none; stroke: var(--accent); stroke-opacity: 0.5; }
 .building .back { stroke-dasharray: 3 3; }
@@ -314,6 +315,12 @@ kbd {
 .layer ul { margin: 0 0 2rem; padding-left: 1.1rem; color: var(--text-dim); max-width: var(--measure); }
 .layer li { margin: 0.35rem 0; }
 .layer li::marker { color: var(--c); }
+@media (max-width: 40rem) {
+  .layer { padding-left: 0.75rem; }
+  .layer h3 { font-size: 1.2rem; }
+  .layer p { font-size: 1rem; }
+  .layer ul { padding-left: 1rem; font-size: 0.95rem; }
+}
 .stack.live .layer:not(.on) { display: none; }
 .stack.live .layer ul { margin-bottom: 0; }
 @media (prefers-reduced-motion: reduce) {
