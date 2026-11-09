@@ -47,7 +47,7 @@ if (start) {
     frame.focus();
     home.disabled = false;
     fullscreen.disabled = !player.requestFullscreen;
-    padToggle.disabled = false;
+    padToggle.hidden = false;
     // Shown at the start on touch screens, where there is no other way to operate the demo.
     showPad(matchMedia("(pointer: coarse)").matches);
   });
@@ -61,7 +61,6 @@ if (start) {
 
   const showPad = (on) => {
     pad.hidden = !on;
-    padToggle.textContent = on ? "Hide controller" : "Show controller";
     padToggle.setAttribute("aria-pressed", on);
   };
   padToggle.addEventListener("click", () => { showPad(pad.hidden); focusDemo(); });

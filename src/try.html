@@ -23,6 +23,9 @@
             Start demo
             <span class="meta">Download size: approximately 10 MB</span>
           </button>
+          <button type="button" class="pad-toggle" id="demo-pad" aria-pressed="false" aria-label="Controller" title="Controller" hidden>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10c2.6 0 4 1.8 4.6 4.6l.9 4.4c.4 2-1.6 3.2-3 1.8L17 15.3H7l-2.5 2.5c-1.4 1.4-3.4.2-3-1.8l.9-4.4C3 8.8 4.4 7 7 7Z"/><path d="M7.5 9.5v3M6 11h3"/><circle cx="16" cy="10" r=".6"/><circle cx="17.6" cy="11.8" r=".6"/></svg>
+          </button>
           <div class="touch-pad" id="touch-pad" hidden>
             <button type="button" class="shoulder lb" data-key="PageUp" tabindex="-1">LB</button>
             <button type="button" class="shoulder rb" data-key="PageDown" tabindex="-1">RB</button>
@@ -47,7 +50,6 @@
       <div class="player-bar">
         <button type="button" id="demo-home" disabled>Home</button>
         <button type="button" id="demo-fullscreen" disabled>Full screen</button>
-        <button type="button" id="demo-pad" disabled>Show controller</button>
       </div>
     </div>
 <!-- /demo -->
@@ -59,7 +61,7 @@
 
     <section aria-labelledby="keys-heading">
       <h2 id="keys-heading">Controls</h2>
-      <p>Use a keyboard or a controller. The controller operates after its first button push. Click the screen before you use the keyboard. Touch and mouse input do not operate on the screen. To use them, push Show controller.</p>
+      <p>Use a keyboard or a controller. The controller operates after its first button push. Click the screen before you use the keyboard. Touch and mouse input do not operate on the screen. To use them, push the controller icon in the top-right corner of the screen.</p>
       <div class="pad-diagram">
         <svg class="top" viewBox="0 0 900 420" role="img" aria-labelledby="pad-title">
           <title id="pad-title">A controller from above, with the keyboard key for each button it uses</title>

@@ -645,8 +645,9 @@ kbd {
 }
 .player-bar button:hover:not(:disabled) { background: var(--surface-high); }
 .player-bar button:disabled { color: var(--text-dim); opacity: 0.5; cursor: default; }
-/* Demo: a see-through controller over the screen, for a mouse or touch. The buttons scale with
-   the screen, but stay large enough for a finger. */
+/* Demo: a see-through controller along the bottom of the screen, for a mouse or touch, shown and
+   hidden by an icon in the top-right corner. The buttons scale with the screen, but stay large
+   enough for a finger. LB and RB are above the D-pad and the face buttons. */
 .tv { container-type: inline-size; }
 .touch-pad {
   position: absolute; inset: 0; pointer-events: none;
@@ -664,11 +665,21 @@ kbd {
 .touch-pad button.on { background: rgb(255 255 255 / 0.4); border-color: #fff; color: #fff; }
 .touch-pad .x { opacity: 0.35; pointer-events: none; }
 .touch-pad .shoulder {
-  position: absolute; top: calc(var(--cell) * 0.3); width: calc(var(--cell) * 2); height: calc(var(--cell) * 0.8);
+  position: absolute; bottom: calc(var(--cell) * 3.55); width: calc(var(--cell) * 2); height: calc(var(--cell) * 0.8);
   border-radius: calc(var(--cell) * 0.4);
 }
-.touch-pad .lb { left: calc(var(--cell) * 0.3); }
-.touch-pad .rb { right: calc(var(--cell) * 0.3); }
+.touch-pad .lb { left: calc(var(--cell) * 0.8); }
+.touch-pad .rb { right: calc(var(--cell) * 0.8); }
+.pad-toggle {
+  position: absolute; top: 0.5rem; right: 0.5rem; z-index: 1;
+  display: flex; align-items: center; justify-content: center;
+  width: clamp(2rem, 4.5cqw, 2.75rem); aspect-ratio: 1; padding: 0;
+  border: 1.5px solid rgb(255 255 255 / 0.4); border-radius: 50%; background: rgb(0 0 0 / 0.35);
+  color: rgb(255 255 255 / 0.85); cursor: pointer;
+}
+.pad-toggle[hidden] { display: none; }
+.pad-toggle:hover, .pad-toggle[aria-pressed="true"] { background: rgb(255 255 255 / 0.25); color: #fff; }
+.pad-toggle svg { width: 62%; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
 .touch-pad .dpad, .touch-pad .face {
   position: absolute; bottom: calc(var(--cell) * 0.3); display: grid;
   grid-template: repeat(3, var(--cell)) / repeat(3, var(--cell));
