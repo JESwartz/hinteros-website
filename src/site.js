@@ -23,6 +23,9 @@ if (start) {
   const padToggle = document.getElementById("demo-pad");
   const pad = document.getElementById("touch-pad");
   let frame;
+  // Safari on iPhone cannot show a page element in full screen.
+  const canFullscreen = Boolean(player.requestFullscreen && document.fullscreenEnabled);
+  fullscreen.hidden = !canFullscreen;
 
   // The demo is same-origin, so keys are sent straight to the launcher's view. The event must be
   // made by the demo's own window: the launcher ignores a KeyboardEvent from this page.
@@ -46,7 +49,7 @@ if (start) {
     start.replaceWith(frame);
     frame.focus();
     home.disabled = false;
-    fullscreen.disabled = !player.requestFullscreen;
+    fullscreen.disabled = !canFullscreen;
     padToggle.hidden = false;
     // Shown at the start on touch screens, where there is no other way to operate the demo.
     showPad(matchMedia("(pointer: coarse)").matches);

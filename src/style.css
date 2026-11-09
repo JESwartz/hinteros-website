@@ -261,6 +261,11 @@ kbd {
 .grid p { margin: 0; color: var(--text-dim); }
 
 .technical { padding: 4rem 0 5rem; }
+@media (max-width: 40rem) {
+  .features { padding: 2.5rem 0; }
+  .tour { padding: 2.5rem 0 1rem; }
+  .technical { padding: 2rem 0 3rem; }
+}
 
 /* Technical stack: the system as a hologram of an office building, one floor for each layer,
    NixOS at the ground. It is an isometric SVG: each floor is a slab on a square base, with its
@@ -275,6 +280,9 @@ kbd {
 #floor-session, #layer-session { --c: #b99cff; }
 #floor-sandbox, #layer-sandbox { --c: #ffd36b; }
 .building { display: block; width: 100%; max-width: 28rem; margin: 0 auto; overflow: visible; }
+/* Stacked above its panel, the building is at most 45% of the screen high, so a tapped floor and
+   its text show together. */
+@media (max-width: 51.99rem) { .building { max-width: min(28rem, 26svh); } }
 .building .pad { fill: rgb(122 162 255 / 0.1); filter: blur(6px); }
 .building .pad-rim { fill: none; stroke: var(--accent); stroke-opacity: 0.5; }
 .building .back { stroke-dasharray: 3 3; }
@@ -395,7 +403,7 @@ kbd {
 
 
 /* Docs: a sticky contents column beside the page; on narrow screens a menu above it. */
-.docs { display: grid; gap: 1.5rem; padding-top: 2rem; padding-bottom: 5rem; flex: 1; width: 100%; }
+.docs { display: grid; align-content: start; gap: 1.5rem; padding-top: 2rem; padding-bottom: 5rem; flex: 1; width: 100%; }
 @media (min-width: 60rem) {
   .docs { grid-template-columns: 14rem minmax(0, 1fr); gap: 4rem; padding-top: 3rem; }
 }
@@ -729,8 +737,8 @@ kbd {
 .player:fullscreen .chin, .player:fullscreen .stand, .player:fullscreen .player-bar { display: none; }
 
 /* Demo: a controller from above and from the front, with the keyboard key for each button it
-   uses. Side by side when there's room, else stacked; on a phone they scroll sideways rather
-   than shrinking the labels past reading. */
+   uses. Side by side when there's room, else stacked. On a phone their labels are too small to
+   read, so the table, which has the same keys, comes first and the diagrams fit the width. */
 .pad-diagram {
   display: flex;
   flex-wrap: wrap;
@@ -743,6 +751,14 @@ kbd {
 .pad-diagram svg { display: block; height: auto; }
 .pad-diagram .top { flex: 900 1 30rem; min-width: 30rem; max-width: 40rem; }
 .pad-diagram .front { flex: 640 1 22rem; min-width: 22rem; max-width: 28rem; }
+@media (max-width: 560px) {
+  .page.try section { display: flex; flex-direction: column; }
+  .page.try section > * { order: 2; }
+  .page.try section > h2, .page.try section > h2 + p { order: 0; }
+  .page.try .input-table { order: 1; width: 100%; }
+  .page.try .pad-diagram { order: 3; overflow: visible; }
+  .pad-diagram .top, .pad-diagram .front { flex: 1 1 100%; min-width: 0; max-width: none; }
+}
 .pad-diagram text { font: 700 16px "Atkinson Hyperlegible", system-ui, sans-serif; text-anchor: middle; fill: var(--text); }
 .pad .body { fill: var(--surface); stroke: var(--surface-high); stroke-width: 2; }
 .pad .bumper { fill: var(--surface-high); stroke: var(--accent); stroke-width: 2; }
