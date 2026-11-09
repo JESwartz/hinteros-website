@@ -645,8 +645,13 @@ kbd {
 .player-bar button:hover:not(:disabled) { background: var(--surface-high); }
 .player-bar button:disabled { color: var(--text-dim); opacity: 0.5; cursor: default; }
 .player:fullscreen { display: flex; flex-direction: column; width: 100%; background: #000; }
-.player:fullscreen .bezel { flex: 1; display: flex; flex-direction: column; padding: 0; border: 0; box-shadow: none; }
-.player:fullscreen .tv { flex: 1; aspect-ratio: auto; }
+/* In full screen the screen stays 16:9, as large as fits, with black bars on the sides that are
+   too big. The bezel is a size container, so the screen can be sized from its height too. */
+.player:fullscreen .bezel {
+  flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center;
+  padding: 0; border: 0; box-shadow: none; background: #000; container-type: size;
+}
+.player:fullscreen .tv { width: min(100cqw, 100cqh * 16 / 9); flex: none; }
 .player:fullscreen .chin, .player:fullscreen .stand { display: none; }
 .player:fullscreen .player-bar { margin: 0; padding: 0.5rem; }
 
