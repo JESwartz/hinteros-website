@@ -191,10 +191,20 @@ kbd {
 }
 .tour-tabs a {
   padding: 0.6rem 0; margin-bottom: -1px; border-bottom: 3px solid transparent;
-  color: var(--text-dim); font-weight: 700; text-decoration: none;
+  color: var(--text-dim); font-weight: 700; text-decoration: none; white-space: nowrap;
 }
 .tour-tabs a:hover { color: var(--text); }
 .tour-tabs a[aria-current="true"] { color: var(--text); border-bottom-color: var(--accent); }
+/* When the names do not fit on one line, only the current one shows, and a bar along the bottom
+   fills as you go through the screens. */
+.tour-tabs { position: relative; }
+.tour-progress { display: none; }
+.tour-tabs.compact a:not([aria-current="true"]) { display: none; }
+.tour-tabs.compact a[aria-current="true"] { border-bottom-color: transparent; }
+.tour-tabs.compact .tour-progress {
+  display: block; position: absolute; left: 0; bottom: -1px; height: 3px;
+  width: calc(var(--progress, 0) * 100%); background: var(--accent);
+}
 .tour-step, .feature-step { display: flex; gap: 0.5rem; margin-left: auto; padding: 0.4rem 0; }
 .tour-step[hidden], .feature-step[hidden] { display: none; }
 .tour-step button, .feature-step button {

@@ -67,11 +67,25 @@ if (track) {
   const step = document.querySelector(".tour-step");
   let current = 0;
   const go = (k) => track.scrollTo({ left: slides[(k + slides.length) % slides.length].offsetLeft });
+  const bar = document.querySelector(".tour-tabs");
   const mark = () => {
     const pitch = slides[1].offsetLeft - slides[0].offsetLeft;
     current = Math.round(track.scrollLeft / pitch);
     tabs.forEach((tab, k) => tab.setAttribute("aria-current", k === current));
+    bar.style.setProperty("--progress", (track.scrollLeft / pitch + 1) / slides.length);
   };
+  // Show only the current name when the names do not all fit on one line.
+  let width = 0;
+  const fit = () => {
+    if (bar.clientWidth === width) return;
+    width = bar.clientWidth;
+    bar.classList.remove("compact");
+    // The buttons are taller than the names, so compare with the bottom of the first name.
+    const line = tabs[0].offsetTop + tabs[0].offsetHeight;
+    bar.classList.toggle("compact", [...tabs, step].some((el) => el.offsetTop >= line));
+  };
+  new ResizeObserver(fit).observe(bar);
+  document.fonts.ready.then(() => { width = 0; fit(); });
   tabs.forEach((tab, k) => tab.addEventListener("click", (event) => { event.preventDefault(); go(k); }));
   for (const button of step.querySelectorAll("button")) {
     button.addEventListener("click", () => go(current + Number(button.dataset.step)));
@@ -79,6 +93,7 @@ if (track) {
   track.addEventListener("scroll", mark, { passive: true });
   step.hidden = false;
   mark();
+  fit();
 }
 
 // The Features carousel on narrow screens: the buttons scroll one card sideways. On wider
