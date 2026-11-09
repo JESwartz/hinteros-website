@@ -1,6 +1,6 @@
-// Copy buttons on the download page, the click-to-start launcher demo on the Demo page, and
-// on the home page the Features and Tour carousels, the Technical stack building and the
-// Features band's lines.
+// Copy buttons on the download page, the click-to-start launcher demo on the Demo page, on the
+// home page the Features and Tour carousels, the Technical stack building and the Features band's
+// lines, and arrow-key navigation on all pages.
 
 for (const button of document.querySelectorAll("button[data-copy]")) {
   button.addEventListener("click", async () => {
@@ -182,16 +182,61 @@ if (stack) {
     floor.addEventListener("focus", () => pick(floor));
     floor.addEventListener("click", () => pick(floor));
     floor.addEventListener("keydown", (event) => {
-      // The floors are drawn bottom up, so up is the next floor in the list.
-      const move = { ArrowUp: 1, ArrowDown: -1 }[event.key];
-      if (!move) return;
+      // The floors are drawn bottom up, so up is the next floor in the list. Past the top or
+      // the bottom floor, the arrow leaves the building (see the arrow keys below).
+      const next = floors[k + ({ ArrowUp: 1, ArrowDown: -1 }[event.key] ?? NaN)];
+      if (!next) return;
       event.preventDefault();
-      floors[(k + move + floors.length) % floors.length].focus();
+      next.focus();
     });
   }
   stack.classList.add("live");
   pick(floors[0]);
 }
+
+// Arrow keys move the focus to the nearest link or button in that direction, so that a controller
+// whose D-pad sends the arrow keys can operate the site, with A as Enter. Only what is on the
+// screen is a target; when nothing is in that direction, up and down scroll the page. Text
+// fields, the demo (it takes its own keys) and the carousels' scroll areas are left alone.
+const TARGETS = 'a[href], button, summary, [tabindex]:not([tabindex="-1"])';
+const quick = matchMedia("(prefers-reduced-motion: reduce)");
+const onScreen = (r) => r.bottom > 0 && r.top < innerHeight && r.right > 0 && r.left < innerWidth;
+document.addEventListener("keydown", (event) => {
+  const dir = { ArrowUp: [0, -1], ArrowDown: [0, 1], ArrowLeft: [-1, 0], ArrowRight: [1, 0] }[event.key];
+  if (!dir || event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+  const from = document.activeElement;
+  if (from?.matches("input, textarea, select, [contenteditable], [role=region]")) return;
+  const [dx, dy] = dir;
+  // Start from the focused element, or from the edge of the screen it moves away from.
+  let o = from && from !== document.body ? from.getBoundingClientRect() : null;
+  if (!o || !onScreen(o)) {
+    const x = dx > 0 ? 0 : dx < 0 ? innerWidth : innerWidth / 2;
+    const y = dy > 0 ? 0 : dy < 0 ? innerHeight : innerHeight / 2;
+    o = { left: x, right: x, top: y, bottom: y };
+  }
+  let best, bestScore = Infinity;
+  for (const el of document.querySelectorAll(TARGETS)) {
+    if (el === from || el.disabled || el.closest("[hidden], [inert], .touch-pad") || el.matches("[role=region]")) continue;
+    const r = el.getBoundingClientRect();
+    if (!r.width || !r.height || !onScreen(r)) continue;
+    // The distance along the direction, edge to edge, and the offset across it (0 if they overlap).
+    const along = dx > 0 ? r.left - o.right : dx < 0 ? o.left - r.right : dy > 0 ? r.top - o.bottom : o.top - r.bottom;
+    if (along < -1) continue;
+    const across = dx
+      ? Math.max(0, r.top - o.bottom, o.top - r.bottom)
+      : Math.max(0, r.left - o.right, o.left - r.right);
+    const score = along + across * 3;
+    if (score < bestScore) { best = el; bestScore = score; }
+  }
+  if (best) {
+    event.preventDefault();
+    best.focus({ preventScroll: true });
+    best.scrollIntoView({ block: "nearest", inline: "nearest", behavior: quick.matches ? "auto" : "smooth" });
+  } else if (dy) {
+    event.preventDefault();
+    scrollBy({ top: dy * innerHeight * 0.4, behavior: quick.matches ? "auto" : "smooth" });
+  }
+});
 
 // The home page's Features band: a web of lines, hexagons at the top left, triangles in the
 // middle and squares at the bottom right. The hexagon region is the corner above the line from
