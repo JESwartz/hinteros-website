@@ -1,0 +1,21 @@
+{
+  "version": "1.0.1",
+  "channel": "stable",
+  "date": "2026-11-10",
+  "commit": "8d2b540da3d24967613297336b83aea47cb6d03d",
+  "source": "https://git.hinteros.org/hinteros/src/commit/8d2b540da3d24967613297336b83aea47cb6d03d",
+  "iso": {
+    "name": "hinteros-1.0.1-x86_64.iso",
+    "url": "https://git.hinteros.org/hinteros/releases/download/v1.0.1/hinteros-1.0.1-x86_64.iso",
+    "size": 3506438144,
+    "sha256": "03b65834a1cbdf7e32926077a8ec9e4fe15581c943041fca16522432e3dc2e33"
+  },
+  "sha256sums_url": "https://git.hinteros.org/hinteros/releases/download/v1.0.1/SHA256SUMS",
+  "signature_url": "https://git.hinteros.org/hinteros/releases/download/v1.0.1/SHA256SUMS.sig",
+  "signer": {
+    "principal": "release",
+    "namespace": "file",
+    "fingerprint": "SHA256:NuERttXtUYjtSTqt7kHUqs7TW6rWSHjHOIUlOOADpCE"
+  },
+  "notes": "HinterOS 1.0, the first release for everyone: a controller-driven console and smart TV system\nfor a PC under the TV. Download the installer and read how to install at https://hinteros.org.\n\n- Home screen for the controller: Home, Games, Apps and Settings, with short, plain on-screen\n  text. The Guide button goes home. On-screen keyboard and a stick-driven pointer for apps that\n  need one.\n- Profiles: everyone gets their own profile with its own apps, Steam account, settings and an\n  optional PIN. A Guest profile starts fresh every time. A profile that is not on screen is\n  paused.\n- Apps: Steam, YouTube, Jellyfin, Plex, Firefox, VacuumTube and more from the Store. Store apps\n  run in a sandbox and use the controller, the microphone, Downloads or the local network only\n  with your permission. Each app runs on its own display.\n- Servers: the box can run a Jellyfin server, a Plex Media Server, Tailscale and Cloudflare\n  Tunnel. Put your media in /srv/media; HinterOS sets up Jellyfin and signs the Jellyfin app in.\n- Settings: Profiles, Updates, Storage, Network, Display and sound, Accessibility and System.\n  Wi-Fi, Bluetooth controllers, sound output, resolution, time zone and the screen saver apply\n  at once. Settings → Storage shows what uses the disk and cleans up old versions.\n- Updates: signed releases on the `stable` and `beta` channels. The box checks for updates and\n  tells you; it never updates on its own. Every update is a new version of the system that you\n  can roll back, and the box goes back to the previous version by itself if a new one does not\n  start. Security updates show a notice until you install them.\n- Installer on a USB stick: Internet, Admin account, Options, Apps, Disk and Summary, all with\n  the controller. It works offline for the default apps. Keep data repairs an installed box and\n  keeps its profiles, homes and settings. Erase all needs a 5-second button hold.\n- Hardware video decoding on Intel GPUs, sound on the TV by default, and support for Xbox and\n  other Bluetooth controllers.\n- Security: the admin PIN protects updates and system settings, apps cannot read the keyboard\n  or each other, SSH (off by default) accepts only local networks, and the firewall is on.\n\nKnown limits: only the `unstable` nixpkgs base. The box shows on one display at a time.\n\nReleases before 1.0 were internal pre-releases. Their notes follow for reference."
+}
